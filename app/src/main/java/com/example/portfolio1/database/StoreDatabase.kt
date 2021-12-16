@@ -15,5 +15,4 @@ import com.example.portfolio1.database.entities.User
 
 abstract class StoreDatabase : RoomDatabase() {
     abstract fun UserDao(): UserDao
-    abstract fun deleteDao(): UserDao
 }

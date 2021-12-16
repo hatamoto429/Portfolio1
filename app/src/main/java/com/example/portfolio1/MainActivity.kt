@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         @StringRes val resourceId: Int,
         val icon: ImageVector
     ) {
-        object Main : ScreenData("MainUser", R.string.settings, Icons.Filled.AccountCircle)
+        object Main : ScreenData("MainUser", R.string.main, Icons.Filled.AccountCircle)
         object UserDetail : ScreenData("DetailUser", R.string.user, Icons.Filled.Face)
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)

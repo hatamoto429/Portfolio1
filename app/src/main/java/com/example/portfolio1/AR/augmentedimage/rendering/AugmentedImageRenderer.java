@@ -17,11 +17,12 @@ package com.example.portfolio1.AR.augmentedimage.rendering;
 
 import android.content.Context;
 
+import com.example.portfolio1.AR.common.rendering.ObjectRenderer;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.Pose;
-import com.google.ar.core.examples.java.common.rendering.ObjectRenderer;
-import com.google.ar.core.examples.java.common.rendering.ObjectRenderer.BlendMode;
+import com.example.portfolio1.AR.common.rendering.ObjectRenderer;
+import com.example.portfolio1.AR.common.rendering.ObjectRenderer.BlendMode;
 
 import java.io.IOException;
 
@@ -44,7 +45,7 @@ public class AugmentedImageRenderer {
   public AugmentedImageRenderer() {}
 
   public void createOnGlThread(Context context) throws IOException {
-
+/*
     imageFrameUpperLeft.createOnGlThread(
         context, "models/frame_upper_left.obj", "models/frame_base.png");
     imageFrameUpperLeft.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
@@ -64,6 +65,8 @@ public class AugmentedImageRenderer {
         context, "models/frame_lower_right.obj", "models/frame_base.png");
     imageFrameLowerRight.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
     imageFrameLowerRight.setBlendMode(BlendMode.AlphaBlending);
+
+ */
   }
 
   public void draw(

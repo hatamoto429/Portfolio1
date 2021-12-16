@@ -13,7 +13,7 @@ data class User (
     @PrimaryKey
     val userFirstname: String,
     val userLastname: String,
-    val userPicture: Image,
-    val userBirthday: Date,
+    //val userPicture: Image,
+    //val userBirthday: Date,
     val userTelephone: Double,
     )

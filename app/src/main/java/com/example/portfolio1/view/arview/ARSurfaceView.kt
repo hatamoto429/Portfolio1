@@ -23,9 +23,7 @@ import java.util.*
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-
-
-
+/*
 class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Renderer {
 
 
@@ -71,9 +69,10 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
 
-
+/*
         displayRotationHelper.onSurfaceChanged(width, height)
         GLES20.glViewport(0, 0, width, height)
+*/
     }
 
     override fun onDrawFrame(gl: GL10?) {
@@ -122,7 +121,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
             drawAugmentedImages(frame, projmtx, viewmtx, colorCorrectionRgba)
         } catch (t: Throwable) {
             // Avoid crashing the application due to unhandled exceptions.
-            Log.e(AugmentedImageActivity.TAG, "Exception on the OpenGL thread", t)
+            // Log.e(AugmentedImageActivity.TAG, "Exception on the OpenGL thread", t)
         }
     }
 
@@ -143,8 +142,9 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
                     messageSnackbarHelper.showMessage(this, text)
                 }
                 TrackingState.TRACKING -> {
+
                     // Have to switch to UI Thread to update View.
-                    Runnable { fitToScanView.setVisibility(GONE) }
+                   // Runnable { fitToScanView.setVisibility(GONE) }
 
                     // Create a new anchor for newly found images.
                     if (!augmentedImageMap.containsKey(augmentedImage.index)) {
@@ -176,3 +176,4 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
     }
 
 }
+        */
