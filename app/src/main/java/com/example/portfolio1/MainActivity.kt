@@ -1,6 +1,7 @@
 package com.example.portfolio1
-
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,10 +26,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-
 import com.example.portfolio1.viewModel.MainViewModel
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-
 import com.example.portfolio1.viewModel.CameraViewModel
 import com.example.portfolio1.viewModel.DetailViewModel
 import com.example.portfolio1.viewModel.SettingsViewModel
@@ -36,7 +35,9 @@ import com.example.portfolio1.AR.augmentedimage.rendering.AugmentedImageRenderer
 import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.MainContent
 import com.example.portfolio1.view.SettingsContent
-
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 
 class MainActivity : ComponentActivity() {
 
@@ -55,6 +56,26 @@ class MainActivity : ComponentActivity() {
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
+
+private fun generateQRCode(text:String) : Bitmap {
+    val width = 500;
+    val height = 500;
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val codeWriter = MultiFormatWriter()
+    try{
+        val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bitmap.setPixel(x,y, if (bitMatrix[x,y] ) Color.Black.hashCode() else Color.White.hashCode())
+            }
+        }
+    }
+    catch (e: WriterException){
+        Log.d("QRGenerator", "QRGenerator: ${e.message}")
+    }
+    return bitmap
+}
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

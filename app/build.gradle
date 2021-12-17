@@ -106,4 +106,7 @@ dependencies {
     // Gson
     implementation "io.ktor:ktor-client-gson:$ktor_version"
 
+    //ZXing
+    implementation 'com.google.zxing:core:3.4.0'
+
 }
