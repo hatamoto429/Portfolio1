@@ -29,33 +29,6 @@ import com.example.portfolio1.ui.theme.Portfolio1Theme
 
 class SettingsViewModel (application: Application) : AndroidViewModel(application)
 {
-    @Composable
-    fun SettingsContent(navController: NavController) {
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-
-        ){
-            var title = ("Settings View");
-            var text =("testButton");
-
-            Text(
-                text = title,
-                modifier = Modifier.padding(10.dp)
-            )
-
-            Button(
-
-                onClick = {},
-                modifier = Modifier.padding(top = 8.dp),
-            ) {
-                text = text
-            }
-
-
-        }
-
-    }
 
 }

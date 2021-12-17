@@ -45,7 +45,7 @@ public class AugmentedImageRenderer {
   public AugmentedImageRenderer() {}
 
   public void createOnGlThread(Context context) throws IOException {
-/*
+
     imageFrameUpperLeft.createOnGlThread(
         context, "models/frame_upper_left.obj", "models/frame_base.png");
     imageFrameUpperLeft.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
@@ -66,7 +66,7 @@ public class AugmentedImageRenderer {
     imageFrameLowerRight.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
     imageFrameLowerRight.setBlendMode(BlendMode.AlphaBlending);
 
- */
+
   }
 
   public void draw(

@@ -70,24 +70,24 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
-    //Ktor
+    // Ktor
     implementation "io.ktor:ktor-client-android:$ktor_version"
     implementation "io.ktor:ktor-client-serialization:$ktor_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1'
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
 
-    //Koin
+    // Koin
     implementation "io.insert-koin:koin-core:$koin_version"
     testImplementation "io.insert-koin:koin-test:$koin_version"
     implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
     debugImplementation"androidx.compose.ui:ui-tooling:$compose_version"
 
-    //Room Datenbank
+    // Room Datenbank
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    //AR
+    // AR
     // ARCore (Google Play Services for AR) library.
     implementation 'com.google.ar:core:1.29.0'
 
@@ -102,5 +102,8 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
+    
+    // Gson
+    implementation "io.ktor:ktor-client-gson:$ktor_version"
 
 }

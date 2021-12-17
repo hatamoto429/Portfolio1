@@ -3,10 +3,9 @@
 // val json    = Json(JsonConfiguration.Stable)
 // val welcome = json.parse(Welcome.serializer(), jsonString)
 
+package com.example.portfolio1.database.entities
+
 import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
 
 @Serializable
 data class Welcome (
@@ -47,7 +46,7 @@ data class Dob (
 @Serializable
 data class ID (
     val name: String,
-    val value: String
+    val value: String?
 )
 
 @Serializable
@@ -55,8 +54,7 @@ data class Location (
     val street: Street,
     val city: String,
     val state: String,
-    val country: String,
-    val postcode: Long,
+    val postcode: String,
     val coordinates: Coordinates,
     val timezone: Timezone
 )
@@ -65,12 +63,6 @@ data class Location (
 data class Coordinates (
     val latitude: String,
     val longitude: String
-)
-
-@Serializable
-data class Street (
-    val number: Long,
-    val name: String
 )
 
 @Serializable
@@ -102,4 +94,12 @@ data class Picture (
     val large: String,
     val medium: String,
     val thumbnail: String
+
+
+)
+
+@Serializable
+data class Street (
+    val number: Int,
+    val name: String,
 )

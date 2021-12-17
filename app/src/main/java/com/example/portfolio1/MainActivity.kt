@@ -33,7 +33,9 @@ import com.example.portfolio1.viewModel.CameraViewModel
 import com.example.portfolio1.viewModel.DetailViewModel
 import com.example.portfolio1.viewModel.SettingsViewModel
 import com.example.portfolio1.AR.augmentedimage.rendering.AugmentedImageRenderer
+import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.MainContent
+import com.example.portfolio1.view.SettingsContent
 
 
 class MainActivity : ComponentActivity() {
@@ -50,7 +52,6 @@ class MainActivity : ComponentActivity() {
         val icon: ImageVector
     ) {
         object Main : ScreenData("MainUser", R.string.main, Icons.Filled.AccountCircle)
-        object UserDetail : ScreenData("DetailUser", R.string.user, Icons.Filled.Face)
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
@@ -68,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavigation {
                             val navBackStackEntry by navController.currentBackStackEntryAsState()
                             val currentDestination = navBackStackEntry?.destination
-                            listOf(ScreenData.Main, ScreenData.UserDetail, ScreenData.Camera, ScreenData.Settings).forEach { item ->
+                            listOf(ScreenData.Main, ScreenData.Camera, ScreenData.Settings).forEach { item ->
                                 BottomNavigationItem(
                                     icon = { Icon(item.icon, contentDescription = null) },
                                     label = { Text(text = stringResource(id = item.resourceId)) },
@@ -96,14 +97,11 @@ class MainActivity : ComponentActivity() {
                             composable(ScreenData.Main.route) {
                                 MainContent(navController, mainViewModel)
                             }
-                            composable(ScreenData.UserDetail.route) {
-                                detailViewModel.DetailContent(navController)
-                            }
                             composable(ScreenData.Camera.route) {
-                                cameraViewModel.CameraContent(navController)
+                                CameraContent(navController, cameraViewModel)
                             }
                             composable(ScreenData.Settings.route) {
-                                settingsViewModel.SettingsContent(navController)
+                                SettingsContent(navController, settingsViewModel)
                             }
 
                         }
@@ -112,10 +110,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-
-
 }
 
 

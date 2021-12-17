@@ -1,4 +1,37 @@
 package com.example.portfolio1
 
-class StoreApplication {
+import android.app.Application
+import androidx.room.Room
+import com.example.portfolio1.database.StoreDatabase
+import com.example.portfolio1.database.entities.User
+
+class StoreApplication : Application() {
+
+    lateinit var database: StoreDatabase
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+
+        database = Room
+            .databaseBuilder(
+                applicationContext,
+                StoreDatabase::class.java,
+                "store-database-name"
+            )
+            .build()
+
+        val userDao = database.userDao()
+
+        /*
+        val user = listOf(
+          //User()
+        )
+
+         */
+
+
+    }
+
+
 }

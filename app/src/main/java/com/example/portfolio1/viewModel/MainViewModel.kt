@@ -16,9 +16,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.portfolio1.database.entities.Welcome
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class MainViewModel (application: Application) : AndroidViewModel(application)
 {
@@ -27,13 +29,12 @@ class MainViewModel (application: Application) : AndroidViewModel(application)
     val allUser: LiveData<String> = internalUser
     private val api = randomUserAPI(ktorHttpClient)
 
-
-
    fun loadAllUser(count: Int) {
 
-       viewModelScope.launch { internalUser.postValue("")
+       viewModelScope.launch {
+           internalUser.postValue("")
            val user = api.get(count)
-           internalUser.postValue(user)
+           internalUser.postValue(Json.encodeToString(Welcome.serializer(), user))
        }
    }
 

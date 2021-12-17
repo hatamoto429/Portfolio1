@@ -1,11 +1,11 @@
 package com.example.portfolio1.view.arview
 
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.util.Log
-import android.util.Pair
 import android.widget.ImageView
 import com.bumptech.glide.RequestManager
 import com.example.portfolio1.AR.augmentedimage.AugmentedImageActivity
@@ -17,13 +17,12 @@ import com.example.portfolio1.AR.common.rendering.BackgroundRenderer
 import com.google.ar.core.*
 import java.io.IOException
 import java.util.HashMap
-import java.util.*
 
 
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-/*
+
 class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Renderer {
 
 
@@ -35,7 +34,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
     private val session: Session? = null
     private val messageSnackbarHelper = SnackbarHelper()
     private val displayRotationHelper: DisplayRotationHelper? = null
-    private val trackingStateHelper = TrackingStateHelper(this)
+    private val trackingStateHelper = TrackingStateHelper(context as Activity?)
 
     private val backgroundRenderer = BackgroundRenderer()
     private val augmentedImageRenderer = AugmentedImageRenderer()
@@ -60,19 +59,19 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
         // Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
         try {
             // Create the texture and pass it to ARCore session to be filled during update().
-            backgroundRenderer.createOnGlThread( /*context=*/this)
-            augmentedImageRenderer.createOnGlThread( /*context=*/this)
+            backgroundRenderer.createOnGlThread( /*context=*/context)
+            augmentedImageRenderer.createOnGlThread( /*context=*/context)
         } catch (e: IOException) {
-            Log.e(AugmentedImageActivity.TAG, "Failed to read an asset file", e)
+            Log.e(this::class.simpleName, "Failed to read an asset file", e)
         }
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
 
-/*
-        displayRotationHelper.onSurfaceChanged(width, height)
+
+        displayRotationHelper?.onSurfaceChanged(width, height)
         GLES20.glViewport(0, 0, width, height)
-*/
+
     }
 
     override fun onDrawFrame(gl: GL10?) {
@@ -88,7 +87,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
         // the video background can be properly adjusted.
         // Notify ARCore session that the view size changed so that the perspective matrix and
         // the video background can be properly adjusted.
-        displayRotationHelper.updateSessionIfNeeded(session)
+        displayRotationHelper?.updateSessionIfNeeded(session)
 
         try {
             session.setCameraTextureName(backgroundRenderer.textureId)
@@ -139,7 +138,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
                     // When an image is in PAUSED state, but the camera is not PAUSED, it has been detected,
                     // but not yet tracked.
                     val text = String.format("Detected Image %d", augmentedImage.index)
-                    messageSnackbarHelper.showMessage(this, text)
+                    messageSnackbarHelper.showMessage(context as Activity?, text)
                 }
                 TrackingState.TRACKING -> {
 
@@ -151,7 +150,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
                         val centerPoseAnchor =
                             augmentedImage.createAnchor(augmentedImage.centerPose)
                         augmentedImageMap.put(
-                            augmentedImage.index, Pair.create(augmentedImage, centerPoseAnchor)
+                            augmentedImage.index, (augmentedImage to centerPoseAnchor)
                         )
                     }
                 }
@@ -162,9 +161,7 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
         }
 
         // Draw all images in augmentedImageMap
-        for (pair in augmentedImageMap.values) {
-            val augmentedImage = pair.first
-            val centerAnchor: Anchor = augmentedImageMap.get(augmentedImage.index).second
+        for ((augmentedImage, centerAnchor) in augmentedImageMap.values) {
             when (augmentedImage.trackingState) {
                 TrackingState.TRACKING -> augmentedImageRenderer.draw(
                     viewmtx, projmtx, augmentedImage, centerAnchor, colorCorrectionRgba
@@ -176,4 +173,3 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
     }
 
 }
-        */
