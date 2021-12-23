@@ -1,12 +1,14 @@
 package com.example.portfolio1.database.entities
 
 import android.media.Image
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.util.*
-
 
 class Converters {
     @TypeConverter
@@ -20,12 +22,20 @@ class Converters {
     }
 }
 
-@Entity()
-data class User (
+@Keep
+@Serializable
+@Entity(tableName = "AllUser")
+data class UserResults (
+    @SerialName("firstname")
+    val userFirstname: String? = null,
+    @SerialName("lastname")
+    val userLastname: String? = null,
+    @SerialName("picture")
+    val userImage: String? = null,
+    @SerialName("birthday")
+    val userBirthday: String? = null,
     @PrimaryKey
-    val userFirstname: String,
-    val userLastname: String,
-    //image
-    val userBirthday: Date,
-    val userTelephone: Double,
+    @SerialName("telephone")
+    val userTelephone: String,
     )
+

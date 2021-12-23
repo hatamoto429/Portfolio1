@@ -2,8 +2,7 @@ package com.example.portfolio1
 
 import android.app.Application
 import androidx.room.Room
-import com.example.portfolio1.database.StoreDatabase
-import com.example.portfolio1.database.entities.User
+import com.example.portfolio1.database.entities.StoreDatabase
 
 class StoreApplication : Application() {
 
@@ -23,13 +22,9 @@ class StoreApplication : Application() {
 
         val userDao = database.userDao()
 
-        /*
-        val user = listOf(
-          //User()
-        )
+        //val user = listOf(
 
-         */
-
+        //)
 
     }
 

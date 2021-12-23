@@ -19,6 +19,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,22 +29,29 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.portfolio1.viewModel.MainViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-import com.example.portfolio1.viewModel.CameraViewModel
-import com.example.portfolio1.viewModel.DetailViewModel
-import com.example.portfolio1.viewModel.SettingsViewModel
 import com.example.portfolio1.AR.augmentedimage.rendering.AugmentedImageRenderer
+import com.example.portfolio1.databinding.ActivityMainBinding
 import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.MainContent
 import com.example.portfolio1.view.SettingsContent
+import com.example.portfolio1.viewModel.*
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.launch
+
+/*
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+ */
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var userListAdapter: UserListAdapter
+
     private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModelTest: MainViewModelTest by viewModels()
     private val detailViewModel: DetailViewModel by viewModels()
     private val cameraViewModel: CameraViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
@@ -57,6 +67,7 @@ class MainActivity : ComponentActivity() {
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
 
+    /*
 private fun generateQRCode(text:String) : Bitmap {
     val width = 500;
     val height = 500;
@@ -75,11 +86,41 @@ private fun generateQRCode(text:String) : Bitmap {
     }
     return bitmap
 }
+  */
 
+    private fun initViews(binding: ActivityMainBinding) {
 
+        userListAdapter = UserListAdapter()
+
+        binding.peopleListRv.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = userListAdapter
+        }
+    }
+
+    private fun subscribeObservers() {
+        mainViewModelTest.loadAllUser(25)
+        lifecycleScope.launch {
+            mainViewModelTest
+                .userListFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                    /*
+                .collect {
+                    userListAdapter.submitList(it)
+                }
+                */
+
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initViews(binding)
+        subscribeObservers()
 
         setContent {
             val navController = rememberNavController()

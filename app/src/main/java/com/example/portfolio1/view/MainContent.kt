@@ -1,5 +1,6 @@
 package com.example.portfolio1.view
 
+import android.media.Image
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -54,6 +55,8 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
         ) {
             Text(text = "Load")
         }
+
+
 
         /*
         Button(

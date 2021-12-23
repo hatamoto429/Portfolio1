@@ -5,10 +5,11 @@
 
 package com.example.portfolio1.database.entities
 
+import com.example.portfolio1.viewModel.User
 import kotlinx.serialization.*
 
 @Serializable
-data class Welcome (
+data class ApiUser (
     val results: List<Result>,
     val info: Info
 )
@@ -34,8 +35,11 @@ data class Result (
     val cell: String,
     val id: ID,
     val picture: Picture,
-    val nat: String
+    val nat: String,
+
 )
+
+
 
 @Serializable
 data class Dob (
