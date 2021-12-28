@@ -1,7 +1,6 @@
 package com.example.portfolio1
-import android.graphics.Bitmap
+
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,13 +28,24 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+<<<<<<< HEAD
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portfolio1.ui.theme.Portfolio1Theme
+=======
+
+import com.example.portfolio1.viewModel.MainViewModel
+import com.example.portfolio1.ui.theme.Portfolio1Theme
+
+import com.example.portfolio1.viewModel.CameraViewModel
+import com.example.portfolio1.viewModel.DetailViewModel
+import com.example.portfolio1.viewModel.SettingsViewModel
+>>>>>>> parent of ff263d1 (Added QR Code Generation)
 import com.example.portfolio1.AR.augmentedimage.rendering.AugmentedImageRenderer
 import com.example.portfolio1.databinding.ActivityMainBinding
 import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.MainContent
 import com.example.portfolio1.view.SettingsContent
+<<<<<<< HEAD
 import com.example.portfolio1.viewModel.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -45,6 +55,9 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
  */
+=======
+
+>>>>>>> parent of ff263d1 (Added QR Code Generation)
 
 class MainActivity : ComponentActivity() {
 
@@ -67,6 +80,7 @@ class MainActivity : ComponentActivity() {
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
 
+<<<<<<< HEAD
     /*
 private fun generateQRCode(text:String) : Bitmap {
     val width = 500;
@@ -113,6 +127,8 @@ private fun generateQRCode(text:String) : Bitmap {
         }
 
     }
+=======
+>>>>>>> parent of ff263d1 (Added QR Code Generation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
