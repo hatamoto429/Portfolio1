@@ -3,10 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Git/BabylonNew/Portfolio1/app/src/main/res/layout/activity_main.xml" value="0.2013677811550152" />
-        <entry key="..\:/Git/BabylonNew/Portfolio1/app/src/main/res/layout/item_person_layout.xml" value="0.2013677811550152" />
         <entry key="..\:/Users/Lukas PC/AndroidStudioProjects/Portfolio1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Lukas PC/AndroidStudioProjects/Portfolio1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activitymainbinding.xml" value="0.3265625" />
       </map>
     </option>
   </component>

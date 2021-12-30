@@ -82,8 +82,6 @@ private fun generateQRCode(text:String) : Bitmap {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val binding = R.layout.
-            .inflate(layoutInflater)
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -137,15 +135,6 @@ private fun generateQRCode(text:String) : Bitmap {
         }
     }
 
-    private fun initViews(binding: ActivityMainBinding) {
-
-        peopleListAdapter = PeopleListAdapter()
-
-        binding.peopleListRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = peopleListAdapter
-        }
-    }
 }
 
 

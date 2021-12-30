@@ -10,6 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.DefaultAlpha
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -31,12 +34,13 @@ class MainViewModel (application: Application) : AndroidViewModel(application)
 
 
    fun loadAllUser(count: Int) {
-
-
        viewModelScope.launch {
            internalUser.postValue("")
-           val user = api.get(count)
-           internalUser.postValue(Json.encodeToString(Welcome.serializer(), user))
+           val users = api.get(count)
+           users.results.forEach(){
+               val test = it.name
+           }
+           //internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
        }
    }
 
@@ -45,6 +49,32 @@ class MainViewModel (application: Application) : AndroidViewModel(application)
    }
 
 
+
+    @Composable
+    fun Image(
+        //bitmap or vector or painter
+        contentDescription: String?,
+        modifier: Modifier = Modifier,
+        alignment: Alignment = Alignment.Center,
+    ){
+
+    }
+
+    @Composable
+    fun String(
+        //bitmap or vector or painter
+        name: String?,
+        modifier: Modifier = Modifier,
+        alignment: Alignment = Alignment.Center,
+    ){
+
+    }
+
+//    @Composable
+//    fun DisplayUser(user: Welcome){
+//    Image("profile_picture", Modifier, Alignment.CenterStart)
+//    Text(text = name)
+//    }
 
 
 }
