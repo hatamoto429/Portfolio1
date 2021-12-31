@@ -23,6 +23,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
         var userCount = 10;
         var isLoading by remember { mutableStateOf(false) }
         val userData by  mainViewModel.allUser.observeAsState("")
+        val userWelcome by mainViewModel.welcomeData.observeAsState(null)
 
         Text(
             text = "All User:",
@@ -33,6 +34,8 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
             text = userData,
             modifier = Modifier.padding(8.dp),
         )
+
+        mainViewModel.DisplayUser(userWelcome)
 
         Button(
 
@@ -90,6 +93,10 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
 
 }
 
+@Composable
+fun DisplayUser() {
+
+}
 
 @Composable
 fun FullScreenDialog(text: String, onClose: () -> Unit) {

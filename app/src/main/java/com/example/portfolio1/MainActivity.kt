@@ -120,7 +120,6 @@ private fun generateQRCode(text:String) : Bitmap {
                         ) {
                             composable(ScreenData.Main.route) {
                                 MainContent(navController, mainViewModel)
-                                mainViewModel.DisplayUser()
                             }
                             
                             composable(ScreenData.Camera.route) {

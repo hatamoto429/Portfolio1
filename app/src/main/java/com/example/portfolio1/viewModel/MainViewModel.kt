@@ -21,12 +21,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.portfolio1.database.entities.Picture
 import com.example.portfolio1.database.entities.Result
 import com.example.portfolio1.database.entities.Welcome
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
@@ -39,9 +41,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val allUser: LiveData<String> = internalUser
     private val api = randomUserAPI(ktorHttpClient, 10)
 
+
     fun loadAllUser(count: Int) {
+
         viewModelScope.launch {
             internalUser.postValue("")
+            userdata.postValue(null)
             val users = api.get(count)
             userdata.postValue(users)
             //internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
@@ -61,8 +66,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     @Composable
-    fun DisplayUser() {
-        userdata.value?.results?.forEach() {
+        fun DisplayUser(welcome: Welcome?) { welcome?.results?.forEach() {
             Text(text = it.name.title)
             Text(text = it.name.first)
             Text(text = it.name.last)
