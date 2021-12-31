@@ -27,7 +27,6 @@ import com.example.portfolio1.database.entities.Result
 import com.example.portfolio1.database.entities.Welcome
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
@@ -55,10 +54,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         internalUser.postValue("")
     }
 
-@Composable
-fun ShowSomeText(text: String){
-    Text (text = text)
-}
+    @Composable
+    fun ShowSomeText(text: String){
+        Text (text = text)
+    }
 
 
     @Composable
