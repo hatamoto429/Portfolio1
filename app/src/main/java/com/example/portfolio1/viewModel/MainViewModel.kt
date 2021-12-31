@@ -29,62 +29,48 @@ import com.example.portfolio1.webAPI.randomUserAPI
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlin.reflect.typeOf
 
-class MainViewModel (application: Application) : AndroidViewModel(application)
-{
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val internalUser = MutableLiveData("")
+    private val userdata = MutableLiveData<Welcome>()
+    val welcomeData: LiveData<Welcome> = userdata
     val allUser: LiveData<String> = internalUser
     private val api = randomUserAPI(ktorHttpClient, 10)
 
-
-   fun loadAllUser(count: Int) {
-       viewModelScope.launch {
-           internalUser.postValue("")
-           val users = api.get(count)
-           users.results.forEach(){
-
-           }
-           internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
-           internalUser.postValue(users.results[0].name.first)
-       }
-   }
-
-   fun resetAllUser() {
-       internalUser.postValue("")
-   }
-
-
-
-    @Composable
-    fun Image(
-        //bitmap or vector or painter
-        contentDescription: String?,
-        modifier: Modifier = Modifier,
-        alignment: Alignment = Alignment.Center,
-    ){
-
+    fun loadAllUser(count: Int) {
+        viewModelScope.launch {
+            internalUser.postValue("")
+            val users = api.get(count)
+            userdata.postValue(users)
+            //internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
+            //internalUser.postValue(users.results[0].name.first)
+            //internalUser.postValue(welcomeData.value.results[0].name.first)
+        }
     }
 
-    @Composable
-    fun String(
-        //bitmap or vector or painter
-        name: String?,
-        modifier: Modifier = Modifier,
-        alignment: Alignment = Alignment.Center,
-    ){
-
+    fun resetAllUser() {
+        internalUser.postValue("")
     }
 
-    @Composable
-    fun DisplayUser(user: Result){
 
-    ImageView(
+    @Composable
+    fun DisplayUser() {
+        userdata.value?.results?.forEach() {
+            Text(text = it.name.title)
+            Text(text = it.name.first)
+            Text(text = it.name.last)
+        }
+        //ImageView(
 
         //Picasso.get().load(user.picture.medium).into(imageView)
-    )
-    Text(text = name)
-   }
+        //)
+
+
+
+
+    }
 
 
 }
