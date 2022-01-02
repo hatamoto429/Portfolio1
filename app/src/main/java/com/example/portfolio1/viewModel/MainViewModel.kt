@@ -4,6 +4,8 @@ import android.app.Application
 import android.widget.Toast
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,10 +69,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     @Composable
-        fun DisplayUser(welcome: Welcome?) { welcome?.results?.forEach() {
-            Text(text = it.name.title)
-            Text(text = it.name.first)
-            Text(text = it.name.last)
+        fun DisplayUser(welcome: Welcome?, modifier: Modifier = Modifier) {
+        welcome?.results?.forEach() {
+            Button (
+                onClick = {
+                },
+                modifier = Modifier.background(Color.White, RectangleShape)
+                    .size(450.dp, 50.dp)
+                    .border(1.dp, Color.Black),
+            ){
+                Text(text = it.name.title)
+                Text(text = it.name.first)
+                Text(text = it.name.last)
+            }
         }
         //ImageView(
 

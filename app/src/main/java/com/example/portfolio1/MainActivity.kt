@@ -121,7 +121,6 @@ private fun generateQRCode(text:String) : Bitmap {
                             composable(ScreenData.Main.route) {
                                 MainContent(navController, mainViewModel)
                             }
-                            
                             composable(ScreenData.Camera.route) {
                                 CameraContent(navController, cameraViewModel)
                             }
