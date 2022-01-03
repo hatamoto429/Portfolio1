@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 
         @Transaction
         @Query("SELECT * FROM users_table ORDER BY userFirstname")
-        fun getUser(): Flow<List<User>>
+        fun getUsers(): Flow<List<User>>
 
         @Transaction
         @Query("SELECT * FROM users_table WHERE sha256 = :id ORDER BY userFirstname DESC")
