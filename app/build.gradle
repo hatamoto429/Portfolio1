@@ -90,6 +90,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+
     // AR
     // ARCore (Google Play Services for AR) library.
     implementation 'com.google.ar:core:1.29.0'
@@ -123,6 +124,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation "androidx.compose.ui:ui-tooling:1.0.5"
 }
 
 kapt {

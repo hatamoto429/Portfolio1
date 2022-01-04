@@ -24,10 +24,10 @@ import javax.inject.Provider
 
 abstract class StoreDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    class Callback @Inject constructor(private val songDatabase: Provider<StoreDatabase>, @ApplicationScope private val applicationScope: CoroutineScope) : androidx.room.RoomDatabase.Callback(){
+    class Callback @Inject constructor(private val userDatabase: Provider<StoreDatabase>, @ApplicationScope private val applicationScope: CoroutineScope) : androidx.room.RoomDatabase.Callback(){
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            val dao = songDatabase.get().userDao()
+            val dao = userDatabase.get().userDao()
             applicationScope.launch {
             }
         }
