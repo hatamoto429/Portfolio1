@@ -15,6 +15,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.portfolio1.database.entities.Welcome
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
@@ -55,13 +56,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     @Composable
-        fun DisplayUser(welcome: Welcome?, modifier: Modifier = Modifier) {
+        fun DisplayUser(welcome: Welcome?, navController: NavController) {
         welcome?.results?.forEach() {
             Button (
                 onClick = {
-
+                   // modifier = Modifier.background(Color.White, RectangleShape)
+                    navController.navigate("userDetails")
                 },
-                modifier = Modifier.background(Color.White, RectangleShape)
+
+                modifier = Modifier
+                    .background(Color.White, RectangleShape)
                     .size(450.dp, 50.dp)
                     .border(1.dp, Color.Black),
             ){

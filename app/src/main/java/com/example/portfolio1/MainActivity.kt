@@ -1,11 +1,13 @@
 package com.example.portfolio1
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -25,6 +27,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.portfolio1.ui.theme.Portfolio1Theme
 import com.example.portfolio1.view.CameraContent
+import com.example.portfolio1.view.DetailContent
 import com.example.portfolio1.view.MainContent
 import com.example.portfolio1.view.SettingsContent
 import com.example.portfolio1.viewModel.CameraViewModel
@@ -73,9 +76,6 @@ private fun generateQRCode(text:String) : Bitmap {
 }
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -115,6 +115,9 @@ private fun generateQRCode(text:String) : Bitmap {
                         ) {
                             composable(ScreenData.Main.route) {
                                 MainContent(navController, mainViewModel)
+                            }
+                            composable("userDetails") {
+                                DetailContent(navController, detailViewModel)
                             }
                             composable(ScreenData.Camera.route) {
                                 CameraContent(navController, cameraViewModel)

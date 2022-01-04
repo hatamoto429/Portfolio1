@@ -1,6 +1,7 @@
 package com.example.portfolio1.view
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
@@ -9,8 +10,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.portfolio1.MainActivity
 import com.example.portfolio1.viewModel.MainViewModel
 
 @Composable
@@ -26,16 +30,21 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
         val userWelcome by mainViewModel.welcomeData.observeAsState(null)
 
         Text(
-            text = "All User:",
-            modifier = Modifier.padding(10.dp)
+            text = "All random users:",
+            modifier = Modifier
+                .background(Color.Yellow)
+                .padding(5.dp)
+                .fillMaxWidth(1f)
+                .align(Alignment.CenterHorizontally),
+            fontSize = 15.sp
         )
 
         Text(
             text = userData,
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(5.dp),
         )
 
-        mainViewModel.DisplayUser(userWelcome)
+       mainViewModel.DisplayUser(userWelcome, navController)
 
         Button(
 
@@ -54,9 +63,9 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
                     */
                 }
             },
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 5.dp),
         ) {
-            Text(text = "Load")
+            Text(text = "Load user")
         }
 
         /*
@@ -74,7 +83,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                CircularProgressIndicator(Modifier.size(48.dp))
+                CircularProgressIndicator(Modifier.size(30.dp))
             }
         }
 
