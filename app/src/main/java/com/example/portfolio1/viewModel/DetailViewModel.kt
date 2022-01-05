@@ -34,6 +34,7 @@ import com.example.portfolio1.R
 class DetailViewModel (application: Application) : AndroidViewModel(application)
 {
 
+
    //@ExperimentalAnimationApi
    @Composable
    fun loadSelectedUser(welcome: Welcome?, modifier: Modifier = Modifier) {

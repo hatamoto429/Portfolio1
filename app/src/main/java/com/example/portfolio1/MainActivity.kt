@@ -30,13 +30,11 @@ import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.DetailContent
 import com.example.portfolio1.view.MainContent
 import com.example.portfolio1.view.SettingsContent
-import com.example.portfolio1.viewModel.CameraViewModel
-import com.example.portfolio1.viewModel.DetailViewModel
-import com.example.portfolio1.viewModel.MainViewModel
-import com.example.portfolio1.viewModel.SettingsViewModel
+import com.example.portfolio1.viewModel.*
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
 
@@ -44,6 +42,8 @@ class MainActivity : ComponentActivity() {
     private val detailViewModel: DetailViewModel by viewModels()
     private val cameraViewModel: CameraViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
+    private val dataStoreViewModel: DataStoreViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
    // private val arViewModel: AugmentedImageRenderer by viewModels()
 
     sealed class ScreenData(

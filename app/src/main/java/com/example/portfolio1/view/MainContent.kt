@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.portfolio1.MainActivity
 import com.example.portfolio1.viewModel.MainViewModel
+import com.example.portfolio1.viewModel.UserViewModel
 
 @Composable
 fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
