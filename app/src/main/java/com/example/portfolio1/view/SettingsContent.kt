@@ -3,6 +3,7 @@ package com.example.portfolio1.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -43,7 +45,8 @@ fun SetCurrentInput(value: Int?){
         )
 
 
-        TextField(value = textState.value, onValueChange = {
+        TextField(value = textState.value, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            onValueChange = {
             textState.value = it
             generationAmount = it.toString().toIntOrNull()
             println(generationAmount)
