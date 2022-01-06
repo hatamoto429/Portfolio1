@@ -1,7 +1,10 @@
 package com.example.portfolio1
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -17,12 +20,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.budiyev.android.codescanner.AutoFocusMode
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.CodeScannerView
+import com.budiyev.android.codescanner.DecodeCallback
+import com.budiyev.android.codescanner.ErrorCallback
+import com.budiyev.android.codescanner.ScanMode
 import com.example.portfolio1.ui.theme.Portfolio1Theme
 import com.example.portfolio1.view.CameraContent
 import com.example.portfolio1.view.DetailContent
@@ -55,6 +66,7 @@ class MainActivity : ComponentActivity() {
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
 
+
 private fun generateQRCode(text:String) : Bitmap {
     val width = 500;
     val height = 500;
@@ -75,8 +87,10 @@ private fun generateQRCode(text:String) : Bitmap {
 }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         setContent {
             val navController = rememberNavController()
@@ -132,6 +146,21 @@ private fun generateQRCode(text:String) : Bitmap {
             }
         }
     }
+
+    /*
+    override fun onResume() {
+        super.onResume()
+        cameraViewModel.codeScanner.startPreview()
+    }
+
+    override fun onPause() {
+        cameraViewModel.codeScanner.releaseResources()
+        super.onPause()
+    }
+     */
+
+
+
 
 }
 

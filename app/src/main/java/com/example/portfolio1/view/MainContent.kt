@@ -20,6 +20,7 @@ import com.example.portfolio1.viewModel.UserViewModel
 @Composable
 fun MainContent(navController: NavController, mainViewModel: MainViewModel, userViewModel: UserViewModel) {
 
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally

@@ -9,7 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.budiyev.android.codescanner.AutoFocusMode
+import com.budiyev.android.codescanner.CodeScanner
+import com.budiyev.android.codescanner.CodeScannerView
+import com.budiyev.android.codescanner.ScanMode
 import com.example.portfolio1.viewModel.DetailViewModel
 import com.example.portfolio1.viewModel.MainViewModel
 
@@ -33,7 +38,6 @@ fun DetailContent (navController: NavController, detailViewModel: DetailViewMode
 
 
     }
-
 
 
 
