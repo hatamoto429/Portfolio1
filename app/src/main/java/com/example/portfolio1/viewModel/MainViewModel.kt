@@ -60,10 +60,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     @Composable
-        fun DisplayUser(welcome: Welcome?, navController: NavController) {
+        fun DisplayUser(welcome: Welcome?, navController: NavController, userViewModel: UserViewModel) {
         welcome?.results?.forEach() {
             val user = User(it.login.sha256, it.name.title, it.name.first, it.name.last, it.picture.large, it.picture.medium, it.dob.date, it.phone)
-            //insertUserDetails(user)
+            userViewModel.insertUserDetails(user)
             Button (
                 onClick = {
                    // modifier = Modifier.background(Color.White, RectangleShape)

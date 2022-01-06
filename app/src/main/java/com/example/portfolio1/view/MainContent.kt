@@ -14,12 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.portfolio1.MainActivity
 import com.example.portfolio1.viewModel.MainViewModel
 import com.example.portfolio1.viewModel.UserViewModel
 
 @Composable
-fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
+fun MainContent(navController: NavController, mainViewModel: MainViewModel, userViewModel: UserViewModel) {
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -45,7 +44,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
             modifier = Modifier.padding(5.dp),
         )
 
-       mainViewModel.DisplayUser(userWelcome, navController)
+       mainViewModel.DisplayUser(userWelcome, navController, userViewModel)
 
         Button(
 

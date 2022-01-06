@@ -1,13 +1,11 @@
 package com.example.portfolio1
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -36,6 +34,7 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
@@ -114,7 +113,7 @@ private fun generateQRCode(text:String) : Bitmap {
                             Modifier.padding(innerPadding)
                         ) {
                             composable(ScreenData.Main.route) {
-                                MainContent(navController, mainViewModel)
+                                MainContent(navController, mainViewModel, userViewModel)
                             }
                             composable("userDetails") {
                                 DetailContent(navController, detailViewModel)
