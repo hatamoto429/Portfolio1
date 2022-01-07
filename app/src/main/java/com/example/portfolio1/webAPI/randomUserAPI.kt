@@ -10,7 +10,7 @@ private const val BaseUrl: String = "https://randomuser.me/api"
 // JSON von der API bekommen  ?
 // umgewandelte JSON benutzen und infos rausfiltern , in datenbank speichern
 
-class randomUserAPI (private val client: HttpClient, private val resultCount : Int ) {
+class randomUserAPI (private val client: HttpClient) {
     suspend fun get(paragraphCount: Int ): Welcome =
         client.get("$BaseUrl/?results=$paragraphCount")
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.portfolio1.database.entities.User
-import com.example.portfolio1.database.entities.Welcome
 import com.example.portfolio1.repository.UserRepo
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, application: Application) : AndroidViewModel(application) {
     val currentGeneratedUserCount = MutableLiveData<Int?>(10)
     val userGenCount: LiveData<Int?> = currentGeneratedUserCount
-    private val api = randomUserAPI(ktorHttpClient, 10)
+    private val api = randomUserAPI(ktorHttpClient)
     private val _response = MutableLiveData<Long>()
     val response: LiveData<Long> = _response
 

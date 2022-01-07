@@ -1,38 +1,35 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
-import android.graphics.drawable.Icon
-import android.text.Layout
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.portfolio1.MainActivity
 import com.example.portfolio1.R
 import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.database.entities.Welcome
-import com.example.portfolio1.preferences.PreferenceStorage
 import com.example.portfolio1.repository.UserRepo
 import com.example.portfolio1.webAPI.ktorHttpClient
 import com.example.portfolio1.webAPI.randomUserAPI
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,9 +40,10 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     private val userdata = MutableLiveData<Welcome>(null)
     val welcomeData: LiveData<Welcome> = userdata
     val allUser: LiveData<String> = internalUser
-    private val api = randomUserAPI(ktorHttpClient, 10)
+    private val api = randomUserAPI(ktorHttpClient)
     private val _userDetails = MutableStateFlow<List<User>>(emptyList())
     val userDetails : StateFlow<List<User>> =  _userDetails
+
 
     fun doDeleteSingleUserRecord(shaKey :String){
         viewModelScope.launch(Dispatchers.IO) {
@@ -61,7 +59,9 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                 }
                 .collect {
                     _userDetails.value = it
+                    _userDetails.emit(it)
                 }
+
         }
     }
 
@@ -109,6 +109,8 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                 Button(
                     onClick = {
                         doDeleteSingleUserRecord(it.sha256)
+                        navController.navigate(MainActivity.ScreenData.Main.route)
+                        doGetUserDetails()
                 },
                     modifier = Modifier
                         .size(50.dp, 50.dp)
