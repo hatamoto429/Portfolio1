@@ -29,71 +29,74 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import com.example.portfolio1.R
+import com.example.portfolio1.database.entities.User
 
 
-class DetailViewModel (application: Application) : AndroidViewModel(application)
-{
+class DetailViewModel(application: Application) : AndroidViewModel(application) {
+
+    @Composable
+    fun loadSelectedUser(welcome: Welcome?, modifier: Modifier = Modifier, user: User) {
+
+        Text(
+            text = "user details",
+            modifier = Modifier.padding(10.dp)
+        )
+
+        displayInformation(user)
+
+    }
+
+    @Composable
+    fun displayInformation(user: User) {
 
 
-   //@ExperimentalAnimationApi
-   @Composable
-   fun loadSelectedUser(welcome: Welcome?, modifier: Modifier = Modifier) {
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-       Text(
-           text = "user details",
-           modifier = Modifier.padding(10.dp)
-       )
-
-       displayInformation()
-
-   }
-
-       //@ExperimentalAnimationApi
-       @Composable
-       fun displayInformation() {
-
-           Row(
-               horizontalArrangement = Arrangement.Start,
-               verticalAlignment = Alignment.CenterVertically
-           ) {
-
-               Card(modifier = Modifier.size(150.dp),
-                    shape = CircleShape)
-               {
-                   Image(painterResource (R.drawable.userimage), contentDescription = "user image")
-               }
+            Card(
+                modifier = Modifier.size(150.dp),
+                shape = CircleShape
+            )
+            {
+                Image(
+                    painterResource(R.drawable.userimage),
+                    contentDescription = user.pictureMedium
+                )
+            }
 
 
-               Text(
-                   modifier = Modifier
-                       .background(Color.Yellow)
-                       .padding(15.dp),
-                   text = "Title",
-                   fontSize = 15.sp
-               )
+            Text(
+                modifier = Modifier
+                    .background(Color.Yellow)
+                    .padding(15.dp),
+                text = user.title,
+                fontSize = 15.sp
+            )
 
-               Text(
-                   modifier = Modifier
-                       .background(Color.Yellow)
-                       .padding(15.dp),
-                   text = "Firstname",
-                   fontSize = 15.sp
-               )
+            Text(
+                modifier = Modifier
+                    .background(Color.Yellow)
+                    .padding(15.dp),
+                text = user.userFirstname,
+                fontSize = 15.sp
+            )
 
-               Text(
-                   modifier = Modifier
-                       .background(Color.Yellow)
-                       .padding(15.dp),
-                   text = "Lastname",
-                   fontSize = 15.sp
-               )
-           }
+            Text(
+                modifier = Modifier
+                    .background(Color.Yellow)
+                    .padding(15.dp),
+                text = user.userLastname,
+                fontSize = 15.sp
+            )
+        }
 
-           Column(
-               verticalArrangement = Arrangement.Center,
-               horizontalAlignment = Alignment.Start,
-               modifier = Modifier.padding(15.dp)
-           ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.padding(15.dp)
+        ) {
 
 
             /*
@@ -116,40 +119,31 @@ class DetailViewModel (application: Application) : AndroidViewModel(application)
             */
 
 
-               Text(
-                   modifier = Modifier
-                       .background(Color.LightGray)
-                       .padding(15.dp),
-                   text = "Birthdate:"
-               )
+            Text(
+                modifier = Modifier
+                    .background(Color.LightGray)
+                    .padding(15.dp),
+                text = user.userBirthday
+            )
 
-               Text(
-                   modifier = Modifier
-                       .background(Color.LightGray)
-                       .padding(15.dp),
-                   text = "Phone:"
-               )
+            Text(
+                modifier = Modifier
+                    .background(Color.LightGray)
+                    .padding(15.dp),
+                text = user.userTelephone
+            )
 
-           }
+        }
 
-           Card(
-               modifier = Modifier.size(250.dp),
-               elevation = 30.dp,
-               shape = RectangleShape)
-           {
+        Button(
 
-              // Spacer(modifier = Modifier.size(10.dp))
+            modifier = Modifier
+                .background(Color.Blue)
+                .padding(15.dp),
+            onClick = {
 
-               Image(
-                   painterResource(R.drawable.qrexample),
-                   modifier = Modifier
-                       .background(Color.Cyan)
-                       .padding(20.dp),
-                   contentDescription = "qr image",
-
-               )
-           }
-
-       }
-
+            }
+        )
+        { }
+    }
 }

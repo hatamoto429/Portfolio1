@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.ui.theme.Portfolio1Theme
 import com.example.portfolio1.view.*
 import com.example.portfolio1.viewModel.*
@@ -53,6 +54,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
+
+            val defaultUser = User(
+                userTelephone = "default",
+                userBirthday = "default",
+                userLastname = "default",
+                userFirstname = "default",
+                title = "default",
+                sha256 = "default",
+                pictureMedium = "default",
+                pictureSmall = "default" )
 
             Portfolio1Theme {
                 Surface(color = MaterialTheme.colors.background) {
@@ -89,7 +100,7 @@ class MainActivity : ComponentActivity() {
                                 MainContent(navController, mainViewModel)
                             }
                             composable("userDetails") {
-                                DetailContent(navController, detailViewModel)
+                                DetailContent(navController, detailViewModel, defaultUser)
                             }
                             composable(ScreenData.Camera.route) {
                                 CameraContent(navController, applicationContext, cameraViewModel)

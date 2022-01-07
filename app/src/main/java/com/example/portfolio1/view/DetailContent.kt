@@ -9,11 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.viewModel.DetailViewModel
 
 //@ExperimentalAnimationApi
 @Composable
-fun DetailContent (navController: NavController, detailViewModel: DetailViewModel) {
+fun DetailContent (navController: NavController, detailViewModel: DetailViewModel, user: User) {
 
     Column(
 
@@ -27,7 +28,7 @@ fun DetailContent (navController: NavController, detailViewModel: DetailViewMode
             modifier = Modifier.padding(10.dp)
         )
 
-        detailViewModel.displayInformation()
+        detailViewModel.displayInformation(user)
 
 
     }

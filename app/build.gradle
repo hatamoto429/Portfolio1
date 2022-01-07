@@ -91,7 +91,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-
     // AR
     // ARCore (Google Play Services for AR) library.
     implementation 'com.google.ar:core:1.29.0'
@@ -113,7 +112,6 @@ dependencies {
 
     //ZXing
     implementation 'com.google.zxing:core:3.4.0'
-
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     kapt "com.android.databinding:compiler:7.0.3"

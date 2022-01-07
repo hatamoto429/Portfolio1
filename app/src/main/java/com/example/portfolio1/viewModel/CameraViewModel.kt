@@ -18,6 +18,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.room.Query
 import com.budiyev.android.codescanner.AutoFocusMode
@@ -31,6 +32,8 @@ import com.example.portfolio1.database.daos.UserDao
 import com.example.portfolio1.repository.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.android.synthetic.main.qr_scanner.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 public const val CAMERA_REQUEST_CODE = 101
@@ -38,6 +41,12 @@ public const val CAMERA_REQUEST_CODE = 101
 @HiltViewModel
 class CameraViewModel @Inject constructor(application: Application, private val userRepo: UserRepo) : AndroidViewModel(application)
 {
+
+    fun getSingleUser(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepo.getSingleUser(id)
+        }
+    }
 
     @Composable
     public fun codeScanner(context: Context) {
@@ -56,11 +65,10 @@ class CameraViewModel @Inject constructor(application: Application, private val 
                     this.startPreview()
 
                     decodeCallback = DecodeCallback {
-                      // Toast.makeText(context, "user found:", Toast.LENGTH_SHORT).show()
+                        // Toast.makeText(context, "user found:", Toast.LENGTH_SHORT).show()
 
                         var shaKey = it.text
-
-                        UserDao.getSingleUserDetails(shaKey)
+                        getSingleUser(shaKey)
 
                     }
 
