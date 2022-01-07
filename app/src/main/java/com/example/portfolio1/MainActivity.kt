@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
                             Modifier.padding(innerPadding)
                         ) {
                             composable(ScreenData.Main.route) {
-                                MainContent(navController, mainViewModel, userViewModel)
+                                MainContent(navController, mainViewModel)
                             }
                             composable("userDetails") {
                                 DetailContent(navController, detailViewModel)
@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(ScreenData.Settings.route) {
                                 SettingsContent(navController, settingsViewModel)
-                                DisplayQR(navController, settingsViewModel, applicationContext)
+                                //DisplayQR(navController, settingsViewModel, applicationContext)
                                 //settingsViewModel.deleteAllUsers()
                             }
 

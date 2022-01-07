@@ -32,10 +32,7 @@ import com.example.portfolio1.webAPI.randomUserAPI
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -49,15 +46,6 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     private val api = randomUserAPI(ktorHttpClient, 10)
     private val _userDetails = MutableStateFlow<List<User>>(emptyList())
     val userDetails : StateFlow<List<User>> =  _userDetails
-    private val _response = MutableLiveData<Long>()
-    val response: LiveData<Long> = _response
-
-    //insert user details to room database
-    fun insertUserDetails(user: User){
-        viewModelScope.launch(Dispatchers.IO) {
-            _response.postValue(userRepo.createUserRecords(user))
-        }
-    }
 
     fun doDeleteSingleUserRecord(shaKey :String){
         viewModelScope.launch(Dispatchers.IO) {
@@ -77,7 +65,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
         }
     }
 
-    fun loadAllUser(count: Int) {
+    /*fun loadAllUser(count: Int) {
 
         viewModelScope.launch {
             internalUser.postValue("")
@@ -85,36 +73,21 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
             val users = api.get(count)
 
             userdata.postValue(users)
+
+            fillDatabaseWithUsers(users)
             //internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
             //internalUser.postValue(users.results[0].name.first)
             //internalUser.postValue(welcomeData.value.results[0].name.first)
         }
 
-    }
+    }*/
 
     fun resetAllUser() {
         internalUser.postValue("")
     }
 
-    fun fillDatabaseWithUsers(welcome: Welcome?){
-        welcome?.results?.forEach() {
-            val user = User(
-                it.login.sha256,
-                it.name.title,
-                it.name.first,
-                it.name.last,
-                it.picture.large,
-                it.picture.medium,
-                it.dob.date,
-                it.phone
-            )
-            insertUserDetails(user)
-        }
-    }
-
     @Composable
         fun DisplayUser(welcome: Welcome?, navController: NavController) {
-        fillDatabaseWithUsers(welcome)
         doGetUserDetails()
         userDetails.value.forEach() {
             Button (
@@ -131,22 +104,22 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                 Text(text = it.title)
                 Text(text = it.userFirstname)
                 Text(text = it.userLastname)
-                Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
-                Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
+                //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
+                //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
                 Button(
                     onClick = {
                         doDeleteSingleUserRecord(it.sha256)
                 },
                     modifier = Modifier
-                        .size(50.dp, 20.dp)
+                        .size(50.dp, 50.dp)
                         .border(1.dp, Color.Black),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                 ){
                     Icon(
                         painter = painterResource(id = R.drawable.deleteicon),
                         contentDescription = "Delete",
                         tint = Color.Red,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(100.dp)
                     )
                 }
             }

@@ -19,4 +19,8 @@ class UserRepo @Inject constructor(private val userDao: UserDao) {
     suspend fun deleteSingleUserRecord(shaKey :String) {
         userDao.deleteSingleUserDetails(shaKey)
     }
+
+    suspend fun deleteAllUsers(){
+        userDao.deleteAllUsersDetails()
+    }
 }

@@ -13,6 +13,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -106,6 +107,7 @@ fun SettingsContent(navController: NavController, settingsViewModel: SettingsVie
         Button(
 
             onClick = {
+                settingsViewModel.fillDatabaseWithUsers(userGenCount)
             },
             modifier = Modifier.padding(top = 8.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
@@ -118,7 +120,9 @@ fun SettingsContent(navController: NavController, settingsViewModel: SettingsVie
         }
         Button(
 
-            onClick = {},
+            onClick = {
+                      settingsViewModel.deleteAllUsers()
+            },
             modifier = Modifier.padding(top = 8.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
 

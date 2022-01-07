@@ -19,8 +19,8 @@ import kotlinx.coroutines.flow.Flow
         @Query("SELECT * FROM users_table WHERE sha256 = :id ORDER BY userFirstname DESC")
         fun getSingleUserDetails(id: String) : Flow<User>
 
-        @Delete
-        suspend fun deleteAllUsersDetails(user: User)
+        @Query("DELETE FROM users_table")
+        suspend fun deleteAllUsersDetails()
 
         @Query("DELETE FROM users_table WHERE sha256 = :shaKey")
         suspend fun deleteSingleUserDetails(shaKey: String)

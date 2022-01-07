@@ -29,6 +29,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
         var isLoading by remember { mutableStateOf(false) }
         val userData by  mainViewModel.allUser.observeAsState("")
         val userWelcome by mainViewModel.welcomeData.observeAsState(null)
+        val usersInDatabase by mainViewModel.userDetails.collectAsState(null)
 
         Text(
             text = "All random users:",
@@ -51,7 +52,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
 
             onClick = {
                 try {
-                    mainViewModel.loadAllUser(userCount.toInt())
+                    mainViewModel.doGetUserDetails()
                     //mainViewModel.DisplayUser()
                     isLoading = true;
                 } catch (exception: NumberFormatException) {
