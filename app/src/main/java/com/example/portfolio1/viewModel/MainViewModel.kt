@@ -65,23 +65,6 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
         }
     }
 
-    /*fun loadAllUser(count: Int) {
-
-        viewModelScope.launch {
-            internalUser.postValue("")
-            userdata.postValue(null)
-            val users = api.get(count)
-
-            userdata.postValue(users)
-
-            fillDatabaseWithUsers(users)
-            //internalUser.postValue(Json.encodeToString(Welcome.serializer(), users))
-            //internalUser.postValue(users.results[0].name.first)
-            //internalUser.postValue(welcomeData.value.results[0].name.first)
-        }
-
-    }*/
-
     fun resetAllUser() {
         internalUser.postValue("")
     }
