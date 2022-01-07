@@ -1,5 +1,9 @@
 package com.example.portfolio1.view
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.provider.MediaStore
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,7 +21,47 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.portfolio1.viewModel.SettingsViewModel
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import java.io.ByteArrayOutputStream
 
+
+private fun generateQRCode(text:String) : Bitmap {
+    val width = 500;
+    val height = 500;
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val codeWriter = MultiFormatWriter()
+    try{
+        val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bitmap.setPixel(x,y, if (bitMatrix[x,y] ) Color.Black.hashCode() else Color.White.hashCode())
+            }
+        }
+    }
+    catch (e: WriterException){
+        Log.d("QRGenerator", "QRGenerator: ${e.message}")
+    }
+    return bitmap
+}
+
+@Composable
+fun DisplayQR(navController: NavController, settingsViewModel: SettingsViewModel, context: Context){
+    var bitmap = generateQRCode("test");
+    val out = ByteArrayOutputStream()
+    var image = bitmap.compress(Bitmap.CompressFormat.PNG, 75, out);
+    MediaStore.Images.Media.insertImage(context.contentResolver, bitmap ,"QR-Code" , "description");
+
+  /*  Image(
+        painterResource(),
+        modifier = Modifier
+            .background(Color.Cyan)
+            .padding(20.dp),
+        contentDescription = "qr image",
+
+        )*/
+}
 
 @Composable
 fun SettingsContent(navController: NavController, settingsViewModel: SettingsViewModel) {
@@ -61,7 +105,8 @@ fun SettingsContent(navController: NavController, settingsViewModel: SettingsVie
         })
         Button(
 
-            onClick = {},
+            onClick = {
+            },
             modifier = Modifier.padding(top = 8.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
 

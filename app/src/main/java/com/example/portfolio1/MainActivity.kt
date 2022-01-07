@@ -1,10 +1,5 @@
 package com.example.portfolio1
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -17,32 +12,17 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.budiyev.android.codescanner.AutoFocusMode
-import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ErrorCallback
-import com.budiyev.android.codescanner.ScanMode
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-import com.example.portfolio1.view.CameraContent
-import com.example.portfolio1.view.DetailContent
-import com.example.portfolio1.view.MainContent
-import com.example.portfolio1.view.SettingsContent
+import com.example.portfolio1.view.*
 import com.example.portfolio1.viewModel.*
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,28 +45,6 @@ class MainActivity : ComponentActivity() {
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
     }
-
-
-private fun generateQRCode(text:String) : Bitmap {
-    val width = 500;
-    val height = 500;
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val codeWriter = MultiFormatWriter()
-    try{
-        val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
-        for (x in 0 until width) {
-            for (y in 0 until height) {
-                bitmap.setPixel(x,y, if (bitMatrix[x,y] ) Color.Black.hashCode() else Color.White.hashCode())
-            }
-        }
-    }
-    catch (e: WriterException){
-        Log.d("QRGenerator", "QRGenerator: ${e.message}")
-    }
-    return bitmap
-}
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,6 +95,7 @@ private fun generateQRCode(text:String) : Bitmap {
                             }
                             composable(ScreenData.Settings.route) {
                                 SettingsContent(navController, settingsViewModel)
+                                DisplayQR(navController, settingsViewModel, applicationContext)
                                 //settingsViewModel.deleteAllUsers()
                             }
 
