@@ -17,15 +17,16 @@
         app:maskColor="#4C000000" />
 
 
-    ‹TextView
-         android:id="@+id/tv_textView"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/scanner_view"
-         android:layout_centerHorizontal="true"
-         android:layout_margin="20dp"
-         android:text="Scan something ..."
-         android:textColor="@android:color/black" />
+    <TextView
+        android:id="@+id/tv_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scanner_view"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:text="Scan something ..."
+        android:textSize="30dp"
+        android:textColor="@android:color/black" />
 
 
 </RelativeLayout>

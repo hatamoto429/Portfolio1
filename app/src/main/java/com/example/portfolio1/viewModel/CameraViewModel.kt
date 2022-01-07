@@ -25,6 +25,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.portfolio1.MainActivity
+import kotlinx.android.synthetic.main.qr_scanner.view.*
 
 public const val CAMERA_REQUEST_CODE = 101
 
@@ -34,23 +35,24 @@ class CameraViewModel(application: Application) : AndroidViewModel(application)
     @Composable
     public fun codeScanner() {
 
-        AndroidView(factory = {context ->  CodeScannerView(context).apply {
+        AndroidView(factory = { context ->
+            CodeScannerView(context).apply {
 
-            CodeScanner(context, this).apply {
-                camera = CodeScanner.CAMERA_BACK
-                formats = CodeScanner.ALL_FORMATS
-                autoFocusMode = AutoFocusMode.SAFE
-                scanMode = ScanMode.CONTINUOUS
-                isAutoFocusEnabled = true
-                isFlashEnabled = false
+                CodeScanner(context, this).apply {
+                    camera = CodeScanner.CAMERA_BACK
+                    formats = CodeScanner.ALL_FORMATS
+                    autoFocusMode = AutoFocusMode.SAFE
+                    scanMode = ScanMode.SINGLE
+                    isAutoFocusEnabled = true
+                    isFlashEnabled = false
 
+                    this.startPreview()
 
-                this.startPreview()
-
+                }
             }
-
-        }})
+        })
     }
+
 
     /*
     @Composable

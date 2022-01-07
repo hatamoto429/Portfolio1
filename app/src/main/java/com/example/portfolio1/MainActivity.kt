@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -105,21 +106,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    /*
-    override fun onResume() {
-        super.onResume()
-        cameraViewModel.codeScanner.startPreview()
-    }
-
-    override fun onPause() {
-        cameraViewModel.codeScanner.releaseResources()
-        super.onPause()
-    }
-     */
-
-
-
 
 }
 

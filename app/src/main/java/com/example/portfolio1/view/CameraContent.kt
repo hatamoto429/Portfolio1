@@ -42,7 +42,6 @@ fun CameraContent(navController: NavController, cameraViewModel: CameraViewModel
 
 }
 
-
 @Composable
 fun PermissionQRCamera(onGranted: @Composable () -> Unit) {
     val launcher = rememberLauncherForActivityResult(
