@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.viewModel.DetailViewModel
 
-//@ExperimentalAnimationApi
 @Composable
 fun DetailContent (navController: NavController, detailViewModel: DetailViewModel, user: User) {
 
@@ -32,8 +31,5 @@ fun DetailContent (navController: NavController, detailViewModel: DetailViewMode
 
 
     }
-
-
-
 
 }

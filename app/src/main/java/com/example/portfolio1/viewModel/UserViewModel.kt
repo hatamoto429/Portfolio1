@@ -28,10 +28,6 @@ class UserViewModel @Inject constructor(private val userRepo: UserRepo): ViewMod
         }
     }
 
-    /**
-     * Retrieve user details
-     */
-
     private val _userDetails = MutableStateFlow<List<User>>(emptyList())
     val userDetails : StateFlow<List<User>> =  _userDetails
 
@@ -46,5 +42,4 @@ class UserViewModel @Inject constructor(private val userRepo: UserRepo): ViewMod
                 }
         }
     }
-
 }

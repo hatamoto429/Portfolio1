@@ -22,8 +22,10 @@ import com.example.portfolio1.database.entities.Welcome
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
+
+
     @Composable
-    fun loadSelectedUser(welcome: Welcome?, modifier: Modifier = Modifier, user: User) {
+    fun loadSelectedUser(user: User) {
 
         Text(
             text = "user details",

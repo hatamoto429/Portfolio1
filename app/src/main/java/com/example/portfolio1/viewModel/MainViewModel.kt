@@ -70,12 +70,14 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     }
 
     @Composable
-        fun DisplayUser(welcome: Welcome?, navController: NavController) {
+    fun DisplayUser(welcome: Welcome?, navController: NavController) {
         doGetUserDetails()
         userDetails.value.forEach() {
             Button (
                 onClick = {
-                    // modifier = Modifier.background(Color.White, RectangleShape)
+
+                   // detailViewModel.(it)
+
                     navController.navigate("userDetails")
                 },
 
@@ -94,6 +96,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                         doDeleteSingleUserRecord(it.sha256)
                         navController.navigate(MainActivity.ScreenData.Main.route)
                         doGetUserDetails()
+
                 },
                     modifier = Modifier
                         .size(50.dp, 50.dp)
