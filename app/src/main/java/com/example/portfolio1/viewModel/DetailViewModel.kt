@@ -1,35 +1,23 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.*
-import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.AndroidViewModel
-import androidx.navigation.NavController
-import com.example.portfolio1.database.entities.Welcome
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Animatable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
-import com.example.portfolio1.R
+import androidx.lifecycle.AndroidViewModel
+import coil.compose.rememberImagePainter
 import com.example.portfolio1.database.entities.User
+import com.example.portfolio1.database.entities.Welcome
 
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
@@ -61,8 +49,9 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             )
             {
                 Image(
-                    painterResource(R.drawable.userimage),
-                    contentDescription = user.pictureMedium
+                    painter = rememberImagePainter("https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"),
+                    contentDescription = null,
+                    modifier = Modifier.size(128.dp)
                 )
             }
 
