@@ -18,7 +18,7 @@ import com.example.portfolio1.viewModel.MainViewModel
 import com.example.portfolio1.viewModel.UserViewModel
 
 @Composable
-fun MainContent(navController: NavController, mainViewModel: MainViewModel, userViewModel: UserViewModel) {
+fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
 
 
     Column(
@@ -45,7 +45,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel, user
             modifier = Modifier.padding(5.dp),
         )
 
-       mainViewModel.DisplayUser(userWelcome, navController, userViewModel)
+       mainViewModel.DisplayUser(userWelcome, navController)
 
         Button(
 

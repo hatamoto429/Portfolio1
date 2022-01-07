@@ -15,4 +15,8 @@ class UserRepo @Inject constructor(private val userDao: UserDao) {
     //get single user details e.g with id 1
     val getUsers: Flow<List<User>> get() =  userDao.getUsers()
 
+    //delete single user record
+    suspend fun deleteSingleUserRecord(shaKey :String) {
+        userDao.deleteSingleUserDetails(shaKey)
+    }
 }

@@ -22,6 +22,9 @@ import kotlinx.coroutines.flow.Flow
         @Delete
         suspend fun deleteAllUsersDetails(user: User)
 
+        @Query("DELETE FROM users_table WHERE sha256 = :shaKey")
+        suspend fun deleteSingleUserDetails(shaKey: String)
+
         @Insert()
         suspend fun insertUser(user: User)
 
