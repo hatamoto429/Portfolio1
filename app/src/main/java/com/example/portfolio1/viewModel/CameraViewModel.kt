@@ -1,6 +1,7 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
+import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.TextView
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
+import androidx.room.Query
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
@@ -25,15 +27,20 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.portfolio1.MainActivity
+import com.example.portfolio1.database.daos.UserDao
+import com.example.portfolio1.repository.UserRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.android.synthetic.main.qr_scanner.view.*
+import javax.inject.Inject
 
 public const val CAMERA_REQUEST_CODE = 101
 
-class CameraViewModel(application: Application) : AndroidViewModel(application)
+@HiltViewModel
+class CameraViewModel @Inject constructor(application: Application, private val userRepo: UserRepo) : AndroidViewModel(application)
 {
 
     @Composable
-    public fun codeScanner() {
+    public fun codeScanner(context: Context) {
 
         AndroidView(factory = { context ->
             CodeScannerView(context).apply {
@@ -42,16 +49,30 @@ class CameraViewModel(application: Application) : AndroidViewModel(application)
                     camera = CodeScanner.CAMERA_BACK
                     formats = CodeScanner.ALL_FORMATS
                     autoFocusMode = AutoFocusMode.SAFE
-                    scanMode = ScanMode.SINGLE
+                    scanMode = ScanMode.CONTINUOUS
                     isAutoFocusEnabled = true
                     isFlashEnabled = false
 
                     this.startPreview()
 
+                    decodeCallback = DecodeCallback {
+                      // Toast.makeText(context, "user found:", Toast.LENGTH_SHORT).show()
+
+                        var shaKey = it.text
+
+                        UserDao.getSingleUserDetails(shaKey)
+
+                    }
+
+                    errorCallback = ErrorCallback {
+
+                    }
+
                 }
             }
         })
     }
+
 
 
     /*

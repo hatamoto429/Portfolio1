@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
                                 DetailContent(navController, detailViewModel)
                             }
                             composable(ScreenData.Camera.route) {
-                                CameraContent(navController, cameraViewModel)
+                                CameraContent(navController, applicationContext, cameraViewModel)
                             }
                             composable(ScreenData.Settings.route) {
                                 SettingsContent(navController, settingsViewModel)

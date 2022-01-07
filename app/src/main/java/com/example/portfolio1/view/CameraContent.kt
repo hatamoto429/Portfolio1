@@ -1,6 +1,7 @@
 package com.example.portfolio1.view
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.opengl.GLSurfaceView
 import android.util.Log
@@ -19,10 +20,10 @@ import com.example.portfolio1.viewModel.DetailViewModel
 
 
 @Composable
-fun CameraContent(navController: NavController, cameraViewModel: CameraViewModel) {
+fun CameraContent(navController: NavController, context: Context, cameraViewModel: CameraViewModel) {
 
     PermissionQRCamera {
-        cameraViewModel.codeScanner()
+        cameraViewModel.codeScanner(context)
     }
 
     /*

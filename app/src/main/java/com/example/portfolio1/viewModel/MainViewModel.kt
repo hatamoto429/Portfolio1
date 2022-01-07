@@ -92,7 +92,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
         userDetails.value.forEach() {
             Button (
                 onClick = {
-                   // modifier = Modifier.background(Color.White, RectangleShape)
+                    // modifier = Modifier.background(Color.White, RectangleShape)
                     navController.navigate("userDetails")
                 },
 

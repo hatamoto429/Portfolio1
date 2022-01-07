@@ -14,7 +14,9 @@
         app:autoFocusButtonVisible="true"
         app:flashButtonColor="@android:color/white"
         app:flashButtonVisible="true"
-        app:maskColor="#4C000000" />
+        app:maskColor="#4C000000"
+
+        />
 
 
     <TextView
@@ -23,10 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scanner_view"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:text="Scan something ..."
-        android:textSize="30dp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="30dp" />
 
 
 </RelativeLayout>
