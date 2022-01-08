@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                                 CameraContent(navController, applicationContext, cameraViewModel)
                             }
                             composable(ScreenData.Settings.route) {
-                                SettingsContent(navController, settingsViewModel)
+                                SettingsContent(navController, settingsViewModel, applicationContext)
                                 //DisplayQR(navController, settingsViewModel, applicationContext)
                                 //settingsViewModel.deleteAllUsers()
                             }
