@@ -3,14 +3,18 @@ package com.example.portfolio1.viewModel
 import android.app.Application
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,19 +33,15 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     @Composable
     fun loadSelectedUser(user: User) {
-
         Text(
             text = "user details",
             modifier = Modifier.padding(10.dp)
         )
-
         displayInformation(user)
-
     }
 
     @Composable
     fun displayInformation(user: User) {
-
 
         Row(
             horizontalArrangement = Arrangement.Start,
@@ -49,17 +49,23 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         ) {
 
             Card(
-                modifier = Modifier.size(150.dp),
-                shape = CircleShape
+                modifier = Modifier
+                    .size(180.dp)
+                    .padding(20.dp)
+                    .clip(CircleShape)
+                    .shadow(10.dp, clip = true)
             )
             {
                 Image(
                     painter = rememberImagePainter(_currentUser.value?.pictureMedium),
                     contentDescription = null,
-                    modifier = Modifier.size(128.dp)
+                    modifier = Modifier
+                        .shadow(10.dp, shape = CircleShape)
+                        .size(100.dp)
+                        .clip(CircleShape)
+
                 )
             }
-
 
             Text(
                 modifier = Modifier
@@ -89,55 +95,56 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(15.dp)
+            modifier = Modifier.padding(10.dp)
         ) {
-
-
-            /*
-            AnimatedVisibility(
-                visible = true,
-                enter = slideInVertically {
-                    with(density) { -40.dp.roundToPx() }
-                } +expandVertically(
-                    expandFrom = Alignment.Top
-                ) + fadeIn(
-                    initialAlpha = 0.3f
-                ),
-                exit = slideOutVertically() + shrinkVertically() + fadeOut()
-            ) {
-                Text(text = "hello there",
-                    Modifier
-                        .fillMaxWidth()
-                        .height(200.dp))
-            }
-            */
-
 
             Text(
                 modifier = Modifier
-                    .background(Color.LightGray)
-                    .padding(15.dp),
+                    .background(Color.LightGray, shape = RoundedCornerShape(13.dp))
+                    .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                    .padding(10.dp),
+                text = "Birthdate:"
+            )
+
+            Text(
+                modifier = Modifier
+                    .background(Color.Transparent, shape = RoundedCornerShape(13.dp))
+                    .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                    .padding(10.dp),
                 text = _currentUser.value?.userBirthday.toString()
             )
 
+
             Text(
                 modifier = Modifier
-                    .background(Color.LightGray)
-                    .padding(15.dp),
-                text = _currentUser.value?.userTelephone.toString()
+                    .background(Color.LightGray, shape = RoundedCornerShape(13.dp))
+                    .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                    .padding(10.dp),
+                text = "Telephone:"
             )
 
+            Text(
+                modifier = Modifier
+                    .background(Color.Transparent, shape = RoundedCornerShape(13.dp))
+                    .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                    .padding(10.dp),
+                text = _currentUser.value?.userTelephone.toString()
+            )
         }
 
-        Button(
 
+        Button(
+                       
             modifier = Modifier
-                .background(Color.Blue)
-                .padding(15.dp),
+                .background(Color.Blue, shape = RoundedCornerShape(13.dp))
+                .padding(5.dp)
+                .clip(shape = RoundedCornerShape(13.dp)),
             onClick = {
 
             }
-        )
-        { }
+        ){
+            Text(text = "Download User QR code")
+        }
     }
 }
+

@@ -23,7 +23,7 @@ import com.example.portfolio1.viewModel.DetailViewModel
 fun CameraContent(navController: NavController, context: Context, cameraViewModel: CameraViewModel) {
 
     PermissionQRCamera {
-        cameraViewModel.codeScanner(context)
+        cameraViewModel.codeScanner(context, navController)
     }
 
     /*

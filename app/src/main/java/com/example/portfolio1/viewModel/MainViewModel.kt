@@ -1,17 +1,24 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
+import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -76,10 +83,8 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
             Button (
                 onClick = {
                     detailViewModel._currentUser.value = it
-
                     navController.navigate("userDetails")
                 },
-
                 modifier = Modifier
                     .size(450.dp, 50.dp)
                     .border(1.dp, Color.Black),
@@ -90,31 +95,27 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                 Text(text = it.userLastname)
                 //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
                 //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
-                Button(
-                    onClick = {
-                        doDeleteSingleUserRecord(it.sha256)
-                        navController.navigate(MainActivity.ScreenData.Main.route)
-                        doGetUserDetails()
-
-                },
-                    modifier = Modifier
-                        .size(50.dp, 50.dp)
-                        .border(1.dp, Color.Black),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
-                ){
-                    Icon(
-                        painter = painterResource(id = R.drawable.deleteicon),
-                        contentDescription = "Delete",
-                        tint = Color.Red,
-                        modifier = Modifier.size(100.dp)
-                    )
+                    Button(
+                        onClick = {
+                            doDeleteSingleUserRecord(it.sha256)
+                            navController.navigate(MainActivity.ScreenData.Main.route)
+                            doGetUserDetails()
+                        },
+                        modifier = Modifier
+                            .size(50.dp, 30.dp)
+                            .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                            .clip(RoundedCornerShape(13.dp)),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                    ){
+                        Text(text = "Delete", fontSize = 10.sp, color = Color.Black)
+                        Icon(
+                            painter = painterResource(id = R.drawable.deleteicon),
+                            contentDescription = "Delete",
+                            tint = Color.Red,
+                            modifier = Modifier.size(100.dp)
+                        )
+                    }
                 }
             }
         }
-        //ImageView(
-
-        //Picasso.get().load(user.picture.medium).into(imageView)
-        //)
     }
-
-}

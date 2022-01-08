@@ -49,7 +49,7 @@ class CameraViewModel @Inject constructor(application: Application, private val 
     }
 
     @Composable
-    public fun codeScanner(context: Context) {
+    public fun codeScanner(context: Context, navController: NavController) {
 
         AndroidView(factory = { context ->
             CodeScannerView(context).apply {
@@ -61,21 +61,15 @@ class CameraViewModel @Inject constructor(application: Application, private val 
                     scanMode = ScanMode.CONTINUOUS
                     isAutoFocusEnabled = true
                     isFlashEnabled = false
-
                     this.startPreview()
-
                     decodeCallback = DecodeCallback {
-                        // Toast.makeText(context, "user found:", Toast.LENGTH_SHORT).show()
-
                         var shaKey = it.text
                         getSingleUser(shaKey)
 
+                        navController.navigate("userDetails")
                     }
-
                     errorCallback = ErrorCallback {
-
                     }
-
                 }
             }
         })
