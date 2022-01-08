@@ -3,27 +3,35 @@ package com.example.portfolio1.view
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.opengl.GLSurfaceView
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import com.example.portfolio1.view.arview.ARSurfaceView
+import com.example.portfolio1.MainActivity
 import com.example.portfolio1.viewModel.CameraViewModel
 import com.example.portfolio1.viewModel.DetailViewModel
 
+val _hasBeenFound = MutableLiveData(false)
+val hasBeenFound: LiveData<Boolean> = _hasBeenFound
 
 @Composable
-fun CameraContent(navController: NavController, context: Context, cameraViewModel: CameraViewModel) {
+public fun SwitchToView(navController: NavController){
+    if (_hasBeenFound.value!!){
+        navController.navigate(MainActivity.ScreenData.Detail.route)
+    }
+}
+
+@Composable
+fun CameraContent(navController: NavController, context: Context, cameraViewModel: CameraViewModel, detailViewModel: DetailViewModel) {
 
     PermissionQRCamera {
-        cameraViewModel.codeScanner(context, navController)
+        cameraViewModel.codeScanner(navController, detailViewModel)
     }
 
     /*

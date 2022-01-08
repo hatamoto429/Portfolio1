@@ -48,6 +48,7 @@ class MainActivity : ComponentActivity() {
         object Main : ScreenData("MainUser", R.string.main, Icons.Filled.AccountCircle)
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
+        object Detail : ScreenData("Detail", R.string.settings, Icons.Filled.Settings)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,11 +102,12 @@ class MainActivity : ComponentActivity() {
                             composable(ScreenData.Main.route) {
                                 MainContent(navController, mainViewModel, detailViewModel)
                             }
-                            composable("userDetails") {
+                            composable(ScreenData.Detail.route) {
                                 DetailContent(navController, detailViewModel, defaultUser)
                             }
                             composable(ScreenData.Camera.route) {
-                                CameraContent(navController, applicationContext, cameraViewModel)
+                                CameraContent(navController, applicationContext, cameraViewModel, detailViewModel)
+                                //SwitchToView(navController)
                             }
                             composable(ScreenData.Settings.route) {
                                 SettingsContent(navController, settingsViewModel, applicationContext)

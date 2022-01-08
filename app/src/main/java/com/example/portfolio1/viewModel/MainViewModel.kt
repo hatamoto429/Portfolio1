@@ -85,7 +85,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
             Button(
                 onClick = {
                     detailViewModel._currentUser.value = it
-                    navController.navigate("userDetails")
+                    navController.navigate(MainActivity.ScreenData.Detail.route)
                 },
                 modifier = Modifier
                     .size(450.dp, 50.dp)

@@ -149,9 +149,9 @@ class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, appl
     fun StoreQR(QRGenerationName: String, ImageTitle: String, context: Context){
         var bitmap = generateQRCode(QRGenerationName)
         //val out = ByteArrayOutputStream()
-        saveImageToInternalStorage(bitmap, context)
+        //saveImageToInternalStorage(bitmap, context)
         //var image = bitmap.compress(Bitmap.CompressFormat.PNG, 75, out)
-        //MediaStore.Images.Media.insertImage(context.contentResolver, bitmap ,ImageTitle , "QR code for Portfolio App")
+        MediaStore.Images.Media.insertImage(context.contentResolver, bitmap ,ImageTitle , "QR code for Portfolio App")
     }
 
     // Method to save an image to internal storage
