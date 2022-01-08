@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -23,7 +22,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-import com.example.portfolio1.view.*
+import com.example.portfolio1.view.CameraContent
+import com.example.portfolio1.view.DetailContent
+import com.example.portfolio1.view.MainContent
+import com.example.portfolio1.view.SettingsContent
 import com.example.portfolio1.viewModel.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -97,7 +99,7 @@ class MainActivity : ComponentActivity() {
                             Modifier.padding(innerPadding)
                         ) {
                             composable(ScreenData.Main.route) {
-                                MainContent(navController, mainViewModel)
+                                MainContent(navController, mainViewModel, detailViewModel)
                             }
                             composable("userDetails") {
                                 DetailContent(navController, detailViewModel, defaultUser)

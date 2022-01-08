@@ -70,13 +70,12 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     }
 
     @Composable
-    fun DisplayUser(welcome: Welcome?, navController: NavController) {
+    fun DisplayUser(welcome: Welcome?, navController: NavController, detailViewModel: DetailViewModel) {
         doGetUserDetails()
         userDetails.value.forEach() {
             Button (
                 onClick = {
-
-                   // detailViewModel.(it)
+                    detailViewModel._currentUser.value = it
 
                     navController.navigate("userDetails")
                 },

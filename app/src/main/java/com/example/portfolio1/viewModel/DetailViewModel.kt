@@ -15,13 +15,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import coil.compose.rememberImagePainter
 import com.example.portfolio1.database.entities.User
-import com.example.portfolio1.database.entities.Welcome
 
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
+    val _currentUser = MutableLiveData<User>()
+    val currentUser: LiveData<User> = _currentUser
 
 
     @Composable
@@ -51,7 +54,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             )
             {
                 Image(
-                    painter = rememberImagePainter("https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"),
+                    painter = rememberImagePainter(_currentUser.value?.pictureMedium),
                     contentDescription = null,
                     modifier = Modifier.size(128.dp)
                 )
@@ -62,7 +65,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                 modifier = Modifier
                     .background(Color.Yellow)
                     .padding(15.dp),
-                text = user.title,
+                text = _currentUser.value?.title.toString(),
                 fontSize = 15.sp
             )
 
@@ -70,7 +73,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                 modifier = Modifier
                     .background(Color.Yellow)
                     .padding(15.dp),
-                text = user.userFirstname,
+                text = _currentUser.value?.userFirstname.toString(),
                 fontSize = 15.sp
             )
 
@@ -78,7 +81,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                 modifier = Modifier
                     .background(Color.Yellow)
                     .padding(15.dp),
-                text = user.userLastname,
+                text = _currentUser.value?.userLastname.toString(),
                 fontSize = 15.sp
             )
         }
@@ -114,14 +117,14 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                 modifier = Modifier
                     .background(Color.LightGray)
                     .padding(15.dp),
-                text = user.userBirthday
+                text = _currentUser.value?.userBirthday.toString()
             )
 
             Text(
                 modifier = Modifier
                     .background(Color.LightGray)
                     .padding(15.dp),
-                text = user.userTelephone
+                text = _currentUser.value?.userTelephone.toString()
             )
 
         }

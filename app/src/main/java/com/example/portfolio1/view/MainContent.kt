@@ -14,10 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.portfolio1.viewModel.DetailViewModel
 import com.example.portfolio1.viewModel.MainViewModel
 
 @Composable
-fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
+fun MainContent(navController: NavController, mainViewModel: MainViewModel, detailViewModel: DetailViewModel) {
 
 
     Column(
@@ -45,7 +46,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel) {
             modifier = Modifier.padding(5.dp),
         )
 
-       mainViewModel.DisplayUser(userWelcome, navController)
+       mainViewModel.DisplayUser(userWelcome, navController, detailViewModel)
 
         Button(
 
