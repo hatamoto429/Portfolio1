@@ -2,6 +2,7 @@ package com.example.portfolio1.viewModel
 
 import android.app.Application
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -37,7 +38,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val userRepo: UserRepo, application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(private val userRepo: UserRepo, application: Application) :
+    AndroidViewModel(application) {
 
     private val internalUser = MutableLiveData("")
     private val userdata = MutableLiveData<Welcome>(null)
@@ -45,19 +47,19 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     val allUser: LiveData<String> = internalUser
     private val api = randomUserAPI(ktorHttpClient)
     private val _userDetails = MutableStateFlow<List<User>>(emptyList())
-    val userDetails : StateFlow<List<User>> =  _userDetails
+    val userDetails: StateFlow<List<User>> = _userDetails
 
 
-    fun doDeleteSingleUserRecord(shaKey :String){
+    fun doDeleteSingleUserRecord(shaKey: String) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepo.deleteSingleUserRecord(shaKey)
         }
     }
 
-    fun doGetUserDetails(){
+    fun doGetUserDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             userRepo.getUsers
-                .catch { e->
+                .catch { e ->
                     //Log error here
                 }
                 .collect {
@@ -73,10 +75,14 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
     }
 
     @Composable
-    fun DisplayUser(welcome: Welcome?, navController: NavController, detailViewModel: DetailViewModel) {
+    fun DisplayUser(
+        welcome: Welcome?,
+        navController: NavController,
+        detailViewModel: DetailViewModel
+    ) {
         doGetUserDetails()
         userDetails.value.forEach() {
-            Button (
+            Button(
                 onClick = {
                     detailViewModel._currentUser.value = it
                     navController.navigate("userDetails")
@@ -85,12 +91,13 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                     .size(450.dp, 50.dp)
                     .border(1.dp, Color.Black),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
-            ){
+            ) {
                 Text(text = it.title + " ")
                 Text(text = it.userFirstname + " ")
                 Text(text = it.userLastname + " ")
                 //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
                 //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
+                Row() {
                     Button(
                         onClick = {
                             doDeleteSingleUserRecord(it.sha256)
@@ -102,7 +109,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                             .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
                             .clip(RoundedCornerShape(13.dp)),
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                    ){
+                    ) {
                         Text(text = "Delete", fontSize = 10.sp, color = Color.Black)
                         Icon(
                             painter = painterResource(id = R.drawable.deleteicon),
@@ -115,3 +122,4 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
             }
         }
     }
+}

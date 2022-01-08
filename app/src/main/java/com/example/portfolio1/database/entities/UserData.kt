@@ -40,7 +40,7 @@ data class Result (
 
 @Serializable
 data class Dob (
-    val date: String,
+    var date: String,
     val age: Long
 )
 

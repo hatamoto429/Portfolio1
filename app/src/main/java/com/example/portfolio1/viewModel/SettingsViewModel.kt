@@ -71,9 +71,9 @@ class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, appl
     }
     fun fillDatabaseWithUsers(count: Int, shouldGenerateQR: Boolean, context: Context){
         viewModelScope.launch {
-            val users = api.get(count)
+            var users = api.get(count)
             users?.results?.forEach() {
-                val user = User(
+                var user = User(
                     it.login.sha256,
                     it.name.title,
                     it.name.first,
@@ -83,7 +83,10 @@ class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, appl
                     it.dob.date,
                     it.phone
                 )
+                var newDate = it.dob.date.subSequence(0, 10)
+                user.userBirthday = newDate.toString()
                 insertUserDetails(user)
+
                 if (shouldGenerateQR){
                     StoreQR(user.sha256, user.userFirstname + " " + user.userLastname, context)
                 }

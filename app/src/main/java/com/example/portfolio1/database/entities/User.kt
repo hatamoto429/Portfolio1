@@ -31,6 +31,6 @@ data class User (
     val userLastname: String,
     val pictureMedium : String,
     val pictureSmall : String,
-    val userBirthday: String,
+    var userBirthday: String,
     val userTelephone: String,
     )
