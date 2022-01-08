@@ -1,10 +1,7 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
-import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -12,7 +9,6 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -90,9 +86,9 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                     .border(1.dp, Color.Black),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
             ){
-                Text(text = it.title)
-                Text(text = it.userFirstname)
-                Text(text = it.userLastname)
+                Text(text = it.title + " ")
+                Text(text = it.userFirstname + " ")
+                Text(text = it.userLastname + " ")
                 //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
                 //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
                     Button(

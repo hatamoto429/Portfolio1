@@ -34,7 +34,7 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel, deta
         Text(
             text = "All random users:",
             modifier = Modifier
-                .background(Color.Yellow)
+                .background(Color.Blue)
                 .padding(5.dp)
                 .fillMaxWidth(1f)
                 .align(Alignment.CenterHorizontally),
