@@ -48,38 +48,6 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel, deta
 
        mainViewModel.DisplayUser(userWelcome, navController, detailViewModel)
 
-        Button(
-
-            onClick = {
-                try {
-                    mainViewModel.doGetUserDetails()
-                    //mainViewModel.DisplayUser()
-                    //isLoading = true;
-                } catch (exception: NumberFormatException) {
-
-                    val errorMessage = "Error, no user found! Try again!"
-                    val errorDuration = Toast.LENGTH_SHORT
-                    /*
-                    val toast = Toast.makeText(applicationContext, errorMessage, errorDuration)
-                    toast.show()
-                    */
-                }
-            },
-            modifier = Modifier.padding(top = 5.dp),
-        ) {
-            Text(text = "Load user")
-        }
-
-        /*
-        Button(
-            onClick = { },
-            modifier = Modifier.padding(top = 8.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
-        ) {
-            Text(text = "Delete")
-        }
-        */
-
         if (isLoading) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -90,23 +58,13 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel, deta
         }
 
         if (userData.isNotEmpty()) {
-
             FullScreenDialog(text = userData)
             {
                 mainViewModel.resetAllUser()
             }
-
             isLoading = false
-
         }
     }
-
-
-}
-
-@Composable
-fun DisplayUser() {
-
 }
 
 @Composable

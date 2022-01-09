@@ -37,7 +37,6 @@ fun DetailContent (navController: NavController, detailViewModel: DetailViewMode
 
         detailViewModel.displayInformation(user)
 
-
     }
 
 }

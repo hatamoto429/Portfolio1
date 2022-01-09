@@ -98,8 +98,8 @@ fun SettingsContent(
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        var deleteButtonText = ("Delete All Users")
-        var createButtonText = ("Generate All Users")
+        var deleteButtonText = ("Delete all users")
+        var createButtonText = ("Generate all users")
         val textState = remember { mutableStateOf(TextFieldValue()) }
         var generationAmount: Int?
         var currentInput = ""
@@ -125,8 +125,9 @@ fun SettingsContent(
             modifier = Modifier.padding(10.dp)
         )
 
-
-        TextField(value = textState.value,
+        TextField(
+            modifier = Modifier.padding(10.dp),
+            value = textState.value,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = {
                 textState.value = it
@@ -141,7 +142,7 @@ fun SettingsContent(
         Row() {
             Text(
                 text = "Generate QR Codes and save them to gallery?",
-                modifier = Modifier.padding(0.dp)
+                modifier = Modifier.padding(10.dp)
             )
             SimpleCheckbox()
         }
@@ -151,9 +152,8 @@ fun SettingsContent(
             onClick = {
                 settingsViewModel.fillDatabaseWithUsers(userGenCount, _isChecked.value!!, context)
             },
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 10.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
-
 
         ) {
             val buttonText = "Generate new users"
@@ -166,9 +166,8 @@ fun SettingsContent(
             onClick = {
                 navController.navigate(MainActivity.ScreenData.CreateUser.route)
             },
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 10.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
-
 
         ) {
             val buttonText = "Create new user manually"
@@ -182,16 +181,12 @@ fun SettingsContent(
             onClick = {
                 settingsViewModel.deleteAllUsers()
             },
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 10.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
-
 
         ) {
             Text(text = deleteButtonText)
 
         }
-
-
     }
-
 }

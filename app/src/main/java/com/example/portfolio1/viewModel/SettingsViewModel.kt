@@ -158,7 +158,7 @@ class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, appl
     private fun saveImageToInternalStorage(bitmap: Bitmap, context: Context): Uri {
 
         // Create a file to save the image
-         //var path = getRealPathFromURI(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        //var path = getRealPathFromURI(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         //val wrapper = ContextWrapper(context)
         val DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
@@ -168,7 +168,6 @@ class SettingsViewModel @Inject constructor(private val userRepo: UserRepo, appl
 
         //file = File(file, "${UUID.randomUUID()}.jpg")
 
-//""
         try {
 
             // Get the file output stream

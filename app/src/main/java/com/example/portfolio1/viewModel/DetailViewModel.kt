@@ -30,7 +30,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     val _currentUser = MutableLiveData<User>()
     val currentUser: LiveData<User> = _currentUser
 
-
     @Composable
     fun loadSelectedUser(user: User) {
         Text(
@@ -132,7 +131,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             )
         }
 
-
         Button(
                        
             modifier = Modifier
@@ -143,7 +141,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
             }
         ){
-            Text(text = "Download User QR code")
+            Text(text = "Download user QR code")
         }
     }
 }

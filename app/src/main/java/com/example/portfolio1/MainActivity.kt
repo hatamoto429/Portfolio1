@@ -33,10 +33,7 @@ class MainActivity : ComponentActivity() {
     private val detailViewModel: DetailViewModel by viewModels()
     private val cameraViewModel: CameraViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
-    private val dataStoreViewModel: DataStoreViewModel by viewModels()
-    private val userViewModel: UserViewModel by viewModels()
     private val createUserViewModel: CreateUserViewModel by viewModels()
-   // private val arViewModel: AugmentedImageRenderer by viewModels()
 
     sealed class ScreenData(
         val route: String,
@@ -52,7 +49,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         setContent {
             val navController = rememberNavController()
@@ -109,12 +105,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(ScreenData.Camera.route) {
                                 CameraContent(navController, applicationContext, cameraViewModel, detailViewModel)
-                                //SwitchToView(navController)
                             }
                             composable(ScreenData.Settings.route) {
                                 SettingsContent(navController, settingsViewModel, applicationContext)
-                                //DisplayQR(navController, settingsViewModel, applicationContext)
-                                //settingsViewModel.deleteAllUsers()
                             }
 
                         }

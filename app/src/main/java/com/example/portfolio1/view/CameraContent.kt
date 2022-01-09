@@ -34,21 +34,6 @@ fun CameraContent(navController: NavController, context: Context, cameraViewMode
         cameraViewModel.codeScanner(navController, detailViewModel)
     }
 
-    /*
-    AndroidView(factory = {context ->
-        ARSurfaceView(context).apply  {
-
-            setPreserveEGLContextOnPause(true)
-            setEGLContextClientVersion(2)
-            setEGLConfigChooser(8, 8, 8, 8, 16, 0) // Alpha used for plane blending.
-
-            setRenderer(this)
-            setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY)
-            setWillNotDraw(false)
-        }
-    })
-    */
-
 }
 
 @Composable

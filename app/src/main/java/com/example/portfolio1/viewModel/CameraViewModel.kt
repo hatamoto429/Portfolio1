@@ -61,25 +61,5 @@ class CameraViewModel @Inject constructor(
             }
         })
     }
-
-
 }
 
-/*
-@Composable
-fun CameraContent(navController: NavController) {
-
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-
-    ){
-        var title = ("Camera View");
-
-        Text(
-            text = title,
-            modifier = Modifier.padding(10.dp)
-        )
-    }
-}
-*/
