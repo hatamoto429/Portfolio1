@@ -1,74 +1,39 @@
 package com.example.portfolio1
-
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-<<<<<<< HEAD
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-=======
-
-import com.example.portfolio1.viewModel.MainViewModel
-import com.example.portfolio1.ui.theme.Portfolio1Theme
-
-import com.example.portfolio1.viewModel.CameraViewModel
-import com.example.portfolio1.viewModel.DetailViewModel
-import com.example.portfolio1.viewModel.SettingsViewModel
->>>>>>> parent of ff263d1 (Added QR Code Generation)
-import com.example.portfolio1.AR.augmentedimage.rendering.AugmentedImageRenderer
-import com.example.portfolio1.databinding.ActivityMainBinding
-import com.example.portfolio1.view.CameraContent
-import com.example.portfolio1.view.MainContent
-import com.example.portfolio1.view.SettingsContent
-<<<<<<< HEAD
+import com.example.portfolio1.view.*
 import com.example.portfolio1.viewModel.*
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 
-/*
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
- */
-=======
-
->>>>>>> parent of ff263d1 (Added QR Code Generation)
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private lateinit var userListAdapter: UserListAdapter
-
     private val mainViewModel: MainViewModel by viewModels()
-    private val mainViewModelTest: MainViewModelTest by viewModels()
     private val detailViewModel: DetailViewModel by viewModels()
     private val cameraViewModel: CameraViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
-   // private val arViewModel: AugmentedImageRenderer by viewModels()
+    private val createUserViewModel: CreateUserViewModel by viewModels()
 
     sealed class ScreenData(
         val route: String,
@@ -78,68 +43,25 @@ class MainActivity : ComponentActivity() {
         object Main : ScreenData("MainUser", R.string.main, Icons.Filled.AccountCircle)
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
+        object Detail : ScreenData("Detail", R.string.settings, Icons.Filled.Settings)
+        object CreateUser : ScreenData("CreateUser", R.string.settings, Icons.Filled.Settings)
     }
-
-<<<<<<< HEAD
-    /*
-private fun generateQRCode(text:String) : Bitmap {
-    val width = 500;
-    val height = 500;
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val codeWriter = MultiFormatWriter()
-    try{
-        val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
-        for (x in 0 until width) {
-            for (y in 0 until height) {
-                bitmap.setPixel(x,y, if (bitMatrix[x,y] ) Color.Black.hashCode() else Color.White.hashCode())
-            }
-        }
-    }
-    catch (e: WriterException){
-        Log.d("QRGenerator", "QRGenerator: ${e.message}")
-    }
-    return bitmap
-}
-  */
-
-    private fun initViews(binding: ActivityMainBinding) {
-
-        userListAdapter = UserListAdapter()
-
-        binding.peopleListRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = userListAdapter
-        }
-    }
-
-    private fun subscribeObservers() {
-        mainViewModelTest.loadAllUser(25)
-        lifecycleScope.launch {
-            mainViewModelTest
-                .userListFlow
-                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                    /*
-                .collect {
-                    userListAdapter.submitList(it)
-                }
-                */
-
-        }
-
-    }
-=======
->>>>>>> parent of ff263d1 (Added QR Code Generation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initViews(binding)
-        subscribeObservers()
-
         setContent {
             val navController = rememberNavController()
+
+            val defaultUser = User(
+                userTelephone = "default",
+                userBirthday = "default",
+                userLastname = "default",
+                userFirstname = "default",
+                title = "default",
+                sha256 = "default",
+                pictureMedium = "default",
+                pictureSmall = "default" )
 
             Portfolio1Theme {
                 Surface(color = MaterialTheme.colors.background) {
@@ -173,13 +95,19 @@ private fun generateQRCode(text:String) : Bitmap {
                             Modifier.padding(innerPadding)
                         ) {
                             composable(ScreenData.Main.route) {
-                                MainContent(navController, mainViewModel)
+                                MainContent(navController, mainViewModel, detailViewModel)
+                            }
+                            composable(ScreenData.Detail.route) {
+                                DetailContent(navController, detailViewModel, defaultUser, applicationContext)
+                            }
+                            composable(ScreenData.CreateUser.route) {
+                                CreateUserContent(navController, createUserViewModel)
                             }
                             composable(ScreenData.Camera.route) {
-                                CameraContent(navController, cameraViewModel)
+                                CameraContent(navController, applicationContext, cameraViewModel, detailViewModel)
                             }
                             composable(ScreenData.Settings.route) {
-                                SettingsContent(navController, settingsViewModel)
+                                SettingsContent(navController, settingsViewModel, applicationContext)
                             }
 
                         }
@@ -188,6 +116,7 @@ private fun generateQRCode(text:String) : Bitmap {
             }
         }
     }
+
 }
 
 

@@ -1,25 +1,35 @@
 package com.example.portfolio1.database.daos
 
-import android.provider.ContactsContract
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.example.portfolio1.database.entities.UserResults
-
+import androidx.room.*
+import com.example.portfolio1.database.entities.User
 import kotlinx.coroutines.flow.Flow
 
     @Dao
     interface UserDao {
 
-        @Query("SELECT * FROM AllUser")
-        fun getUser(): Flow<List<UserResults>>
+        //insert data to room database
+        @Insert(onConflict = OnConflictStrategy.IGNORE)
+        suspend fun insertToRoomDatabase(user: User) : Long
+
+        @Transaction
+        @Query("SELECT * FROM users_table ORDER BY userFirstname")
+        fun getUsers(): Flow<List<User>>
+
+        @Transaction
+        @Query("SELECT * FROM users_table WHERE sha256 = :id ORDER BY userFirstname DESC")
+        fun getSingleUserDetails(id: String) : Flow<User>
+
+        @Query("DELETE FROM users_table")
+        suspend fun deleteAllUsersDetails()
+
+        @Query("DELETE FROM users_table WHERE sha256 = :shaKey")
+        suspend fun deleteSingleUserDetails(shaKey: String)
 
         @Insert()
-        suspend fun insertUser(user: UserResults)
+        suspend fun insertUser(user: User)
 
         @Delete
-        suspend fun deleteNote(user: UserResults)
+        suspend fun deleteNote(user: User)
 
 
     }

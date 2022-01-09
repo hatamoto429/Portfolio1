@@ -1,6 +1,5 @@
-package com.example.portfolio1.viewModel
+package com.example.portfolio1.utility
 
-import android.app.Application
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
@@ -12,54 +11,12 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.portfolio1.database.entities.User
-import com.example.portfolio1.repository.UserRepo
-import com.example.portfolio1.webAPI.ktorHttpClient
-import com.example.portfolio1.webAPI.randomUserAPI
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
-import javax.inject.Inject
-import com.example.portfolio1.utility.QRGenerator as QRGenerator1
 
-
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val userRepo: UserRepo,
-    application: Application
-) : AndroidViewModel(application) {
-    val currentGeneratedUserCount = MutableLiveData<Int?>(10)
-    val userGenCount: LiveData<Int?> = currentGeneratedUserCount
-    private val api = randomUserAPI(ktorHttpClient)
-    private val _response = MutableLiveData<Long>()
-    val response: LiveData<Long> = _response
-
-
-    //insert user details to room database
-    private fun insertUserDetails(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _response.postValue(userRepo.createUserRecords(user))
-        }
-    }
-
-    fun deleteAllUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepo.deleteAllUsers()
-        }
-    }
-
-    private fun generateQRCode(text: String): Bitmap {
+class QRGenerator {
+    fun generateQRCode(text: String): Bitmap {
         val width = 500;
         val height = 500;
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -174,70 +131,4 @@ class SettingsViewModel @Inject constructor(
         )
     }
 
-    // Method to save an image to internal storage
-    private fun saveImageToInternalStorage(bitmap: Bitmap, context: Context): Uri {
-
-        // Create a file to save the image
-        //var path = getRealPathFromURI(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        //val wrapper = ContextWrapper(context)
-        val DOWNLOAD_DIR =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
-        //var file = wrapper.getDir("images", Context.MODE_PRIVATE)
-        //var file = wrapper.getDir("images", Context.M)
-        var file = File(DOWNLOAD_DIR.absolutePath + "/test.png")
-
-        //file = File(file, "${UUID.randomUUID()}.jpg")
-
-        try {
-
-            // Get the file output stream
-            val stream: OutputStream = FileOutputStream(file)
-
-            // Compress bitmap
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-
-            // Flush the stream
-            stream.flush()
-
-            // Close stream
-            stream.close()
-        } catch (e: IOException) { // Catch the exception
-            e.printStackTrace()
-        }
-
-        // Return the saved image uri
-        return Uri.parse(file.absolutePath)
-    }
-
-
-    fun fillDatabaseWithUsers(count: Int, shouldGenerateQR: Boolean, context: Context) {
-        viewModelScope.launch {
-            var users = api.get(count)
-            users?.results?.forEach() {
-                var user = User(
-                    it.login.sha256,
-                    it.name.title,
-                    it.name.first,
-                    it.name.last,
-                    it.picture.large,
-                    it.picture.medium,
-                    it.dob.date,
-                    it.phone
-                )
-                var newDate = it.dob.date.subSequence(0, 10)
-                user.userBirthday = newDate.toString()
-                insertUserDetails(user)
-
-                var generator = QRGenerator1()
-                if (shouldGenerateQR) {
-                    generator.StoreQR(
-                        user.sha256,
-                        user.userFirstname + " " + user.userLastname,
-                        context
-                    )
-                }
-            }
-        }
-    }
 }

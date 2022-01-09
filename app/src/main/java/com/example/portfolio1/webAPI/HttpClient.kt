@@ -27,13 +27,10 @@ public val ktorHttpClient = HttpClient(Android) {
             disableHtmlEscaping()
         }
 
-
         engine {
             connectTimeout = TIME_OUT
             socketTimeout = TIME_OUT
         }
-
-
     }
 
     install(Logging) {
@@ -41,7 +38,6 @@ public val ktorHttpClient = HttpClient(Android) {
             override fun log(message: String) {
                 Log.v("Logger Ktor =>", message)
             }
-
         }
         level = LogLevel.ALL
     }

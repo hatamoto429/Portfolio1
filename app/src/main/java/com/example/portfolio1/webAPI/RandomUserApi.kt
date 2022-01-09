@@ -1,18 +1,13 @@
 package com.example.portfolio1.webAPI
 
 
-import com.example.portfolio1.database.entities.ApiUser
-import io.ktor.client.HttpClient
+import com.example.portfolio1.database.entities.Welcome
+import io.ktor.client.*
 import io.ktor.client.request.*
 
+private const val BaseUrl: String = "https://randomuser.me/api"
 
-// JSON von der API bekommen  ?
-// umgewandelte JSON benutzen und infos rausfiltern , in datenbank speichern
-
-class RandomUserApi (private val client: HttpClient) : NetworkSource {
-
-    suspend fun getApiUser(count: Int): ApiUser =
-        client.get("https://randomuser.me/api/?results=10")
-
-
+class randomUserAPI(private val client: HttpClient) {
+    suspend fun get(paragraphCount: Int): Welcome =
+        client.get("$BaseUrl/?results=$paragraphCount")
 }

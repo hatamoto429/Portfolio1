@@ -5,25 +5,26 @@
 
 package com.example.portfolio1.database.entities
 
-import com.example.portfolio1.viewModel.User
-import kotlinx.serialization.*
+import androidx.room.Entity
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiUser (
+data class Welcome(
     val results: List<Result>,
     val info: Info
 )
 
 @Serializable
-data class Info (
+data class Info(
     val seed: String,
     val results: Long,
     val page: Long,
     val version: String
 )
 
+@Entity()
 @Serializable
-data class Result (
+data class Result(
     val gender: String,
     val name: Name,
     val location: Location,
@@ -35,26 +36,23 @@ data class Result (
     val cell: String,
     val id: ID,
     val picture: Picture,
-    val nat: String,
-
+    val nat: String
 )
 
-
-
 @Serializable
-data class Dob (
-    val date: String,
+data class Dob(
+    var date: String,
     val age: Long
 )
 
 @Serializable
-data class ID (
+data class ID(
     val name: String,
     val value: String?
 )
 
 @Serializable
-data class Location (
+data class Location(
     val street: Street,
     val city: String,
     val state: String,
@@ -64,19 +62,19 @@ data class Location (
 )
 
 @Serializable
-data class Coordinates (
+data class Coordinates(
     val latitude: String,
     val longitude: String
 )
 
 @Serializable
-data class Timezone (
+data class Timezone(
     val offset: String,
     val description: String
 )
 
 @Serializable
-data class Login (
+data class Login(
     val uuid: String,
     val username: String,
     val password: String,
@@ -87,14 +85,14 @@ data class Login (
 )
 
 @Serializable
-data class Name (
+data class Name(
     val title: String,
     val first: String,
     val last: String
 )
 
 @Serializable
-data class Picture (
+data class Picture(
     val large: String,
     val medium: String,
     val thumbnail: String
@@ -103,7 +101,7 @@ data class Picture (
 )
 
 @Serializable
-data class Street (
+data class Street(
     val number: Int,
     val name: String,
 )

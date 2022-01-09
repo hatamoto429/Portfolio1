@@ -23,8 +23,9 @@ import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
 
-class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Renderer {
+//unfinished
 
+class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Renderer {
 
     // Rendering. The Renderers are created here, and initialized when the GL surface is created.
     private val surfaceView: GLSurfaceView? = null
@@ -67,8 +68,6 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
-
-
         displayRotationHelper?.onSurfaceChanged(width, height)
         GLES20.glViewport(0, 0, width, height)
 
@@ -171,5 +170,4 @@ class ARSurfaceView(context: Context?) : GLSurfaceView(context),GLSurfaceView.Re
             }
         }
     }
-
 }

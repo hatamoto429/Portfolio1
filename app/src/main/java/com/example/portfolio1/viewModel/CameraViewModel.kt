@@ -1,45 +1,65 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.budiyev.android.codescanner.*
+import com.example.portfolio1.MainActivity
+import com.example.portfolio1.repository.UserRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-//https://github.com/google-ar/arcore-android-sdk/tree/master/samples example- wichtig : Augmented Image
-// AR core basis, dann programm drauf - läuft mit open gl
-//Augmented Image Activity - genau das was wir brauchen
+public const val CAMERA_REQUEST_CODE = 101
 
-class CameraViewModel(application: Application) : AndroidViewModel(application)
-{
+@HiltViewModel
+class CameraViewModel @Inject constructor(
+    application: Application,
+    private val userRepo: UserRepo
+) : AndroidViewModel(application) {
 
-    @Composable
-    fun CameraContent(navController: NavController) {
+    fun getSingleUser(
+        shaKey: String,
+        navController: NavController,
+        detailViewModel: DetailViewModel
+    ) {
+        viewModelScope.launch() {
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-
-        ){
-            var title = ("Camera View");
-
-            Text(
-                text = title,
-                modifier = Modifier.padding(10.dp)
-            )
-
-
+            detailViewModel._currentUser.value = userRepo.getSingleUser(shaKey).first()
+            navController.navigate(MainActivity.ScreenData.Detail.route)
         }
-
-
-
     }
 
+    @Composable
+    public fun codeScanner(navController: NavController, detailViewModel: DetailViewModel) {
 
+        AndroidView(factory = { context ->
+            CodeScannerView(context).apply {
+
+                CodeScanner(context, this).apply {
+                    camera = CodeScanner.CAMERA_BACK
+                    formats = CodeScanner.ALL_FORMATS
+                    autoFocusMode = AutoFocusMode.SAFE
+                    scanMode = ScanMode.CONTINUOUS
+                    isAutoFocusEnabled = true
+                    isFlashEnabled = false
+                    this.startPreview()
+                    decodeCallback = DecodeCallback {
+                        var shaKey = it.text
+                        getSingleUser(shaKey, navController, detailViewModel)
+
+                        //
+
+                    }
+                    errorCallback = ErrorCallback {
+                    }
+                }
+            }
+        })
+    }
 }
+
