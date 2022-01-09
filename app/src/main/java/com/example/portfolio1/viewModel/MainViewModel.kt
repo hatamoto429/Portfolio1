@@ -94,7 +94,7 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                 modifier = Modifier
                     .size(450.dp, 50.dp)
                     .border(1.dp, Color.Black),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
             ) {
                 Text(text = it.title + " ")
                 Text(text = it.userFirstname + " ")
