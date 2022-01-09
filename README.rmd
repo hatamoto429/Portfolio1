@@ -1,0 +1,6 @@
+Die App unterstützt QR Code speichern nur auf Android 11.
+Nach dem Starten der Applikation sind noch keine User in der Datenbank vorhanden, diese müssen erst in den Einstellungen erstellt werden.
+In den Settings kann der Nutzer eine beliebige Anzahl an zufällig generierten User erstellten lassen oder alle User löschen. Durch eine Checkbox kann er entscheiden, ob die generierten QR-Codes lokal auf seinem Gerät gespeichert werden sollen. Die Lokal gesicherten QR-Codes werden in dem Bilder Ordner abgelegt.
+Im MainView werden nun alle User angezeigt und durch Anklicken eines Users können alle Daten im DetailView eingesehen werden (Bild, Titel, Name, Vorname, Geburtsdatum und Telefonnummer).
+Zusätzlich können in den Settings neue User hinzugefügt geworden und dessen QR-Code im Detail View generiert und gespeichert werden.
+Im CameraView können die erstellten QR Codes der User gescannt werden, der Nutzer wird anschließend in den DetailView des gescannten Users geleitet.
