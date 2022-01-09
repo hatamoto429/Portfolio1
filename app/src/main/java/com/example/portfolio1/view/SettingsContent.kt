@@ -107,13 +107,13 @@ fun SettingsContent(
         var userGenCount by remember { mutableStateOf(10) }
 
         Text(
-            text = "Settings:",
+            text = "Settings",
             modifier = Modifier
-                .background(Color.Yellow)
-                .padding(5.dp)
+                .background(Color.LightGray)
+                .padding(10.dp)
                 .fillMaxWidth(1f)
                 .align(Alignment.CenterHorizontally),
-            fontSize = 15.sp
+            fontSize = 25.sp
         )
 
         Text(

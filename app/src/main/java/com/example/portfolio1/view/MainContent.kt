@@ -32,13 +32,13 @@ fun MainContent(navController: NavController, mainViewModel: MainViewModel, deta
         var isLoading by remember { mutableStateOf(false) }
 
         Text(
-            text = "All random users:",
+            text = "List of users",
             modifier = Modifier
                 .background(Color.LightGray)
-                .padding(5.dp)
+                .padding(10.dp)
                 .fillMaxWidth(1f)
                 .align(Alignment.CenterHorizontally),
-            fontSize = 15.sp
+            fontSize = 25.sp
         )
 
         Text(

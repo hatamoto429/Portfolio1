@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -91,9 +92,9 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                     navController.navigate(MainActivity.ScreenData.Detail.route)
                 },
                 modifier = Modifier
-                    .size(450.dp, 50.dp),
-                    //.border(1.dp, Color.Black),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+                    .size(450.dp, 50.dp)
+                    .border(1.dp, Color.Black),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
             ) {
                 Text(text = it.title + " ")
                 Text(text = it.userFirstname + " ")
