@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import com.example.portfolio1.MainActivity
 import com.example.portfolio1.viewModel.SettingsViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -156,6 +157,21 @@ fun SettingsContent(
 
         ) {
             val buttonText = "Generate new users"
+            Text(text = buttonText)
+
+        }
+
+        Button(
+
+            onClick = {
+                navController.navigate(MainActivity.ScreenData.CreateUser.route)
+            },
+            modifier = Modifier.padding(top = 8.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green)
+
+
+        ) {
+            val buttonText = "Create new user manually"
             Text(text = buttonText)
 
         }

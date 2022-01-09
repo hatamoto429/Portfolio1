@@ -22,10 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.ui.theme.Portfolio1Theme
-import com.example.portfolio1.view.CameraContent
-import com.example.portfolio1.view.DetailContent
-import com.example.portfolio1.view.MainContent
-import com.example.portfolio1.view.SettingsContent
+import com.example.portfolio1.view.*
 import com.example.portfolio1.viewModel.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +35,7 @@ class MainActivity : ComponentActivity() {
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val dataStoreViewModel: DataStoreViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private val createUserViewModel: CreateUserViewModel by viewModels()
    // private val arViewModel: AugmentedImageRenderer by viewModels()
 
     sealed class ScreenData(
@@ -49,6 +47,7 @@ class MainActivity : ComponentActivity() {
         object Camera : ScreenData("Camera", R.string.camera, Icons.Filled.Search)
         object Settings : ScreenData("Settings", R.string.settings, Icons.Filled.Settings)
         object Detail : ScreenData("Detail", R.string.settings, Icons.Filled.Settings)
+        object CreateUser : ScreenData("CreateUser", R.string.settings, Icons.Filled.Settings)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +103,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(ScreenData.Detail.route) {
                                 DetailContent(navController, detailViewModel, defaultUser)
+                            }
+                            composable(ScreenData.CreateUser.route) {
+                                CreateUserContent(navController, createUserViewModel)
                             }
                             composable(ScreenData.Camera.route) {
                                 CameraContent(navController, applicationContext, cameraViewModel, detailViewModel)

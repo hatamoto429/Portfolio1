@@ -3,6 +3,7 @@ package com.example.portfolio1.viewModel
 import android.app.Application
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -10,10 +11,12 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.AndroidViewModel
@@ -88,8 +91,8 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                     navController.navigate(MainActivity.ScreenData.Detail.route)
                 },
                 modifier = Modifier
-                    .size(450.dp, 50.dp)
-                    .border(1.dp, Color.Black),
+                    .size(450.dp, 50.dp),
+                    //.border(1.dp, Color.Black),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
             ) {
                 Text(text = it.title + " ")
@@ -105,12 +108,12 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
                             doGetUserDetails()
                         },
                         modifier = Modifier
-                            .size(50.dp, 30.dp)
-                            .border(1.dp, Color.Black, shape = RoundedCornerShape(13.dp))
+                            .offset(20.dp, 0.dp)
+                            .size(80.dp, 50.dp)
                             .clip(RoundedCornerShape(13.dp)),
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
                     ) {
-                        Text(text = "Delete", fontSize = 10.sp, color = Color.Black)
+                        Text(text = "Delete", fontSize = 14.sp, color = Color.Black, textAlign = TextAlign.Center)
                         Icon(
                             painter = painterResource(id = R.drawable.deleteicon),
                             contentDescription = "Delete",
