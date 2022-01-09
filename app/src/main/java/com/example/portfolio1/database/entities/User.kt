@@ -1,8 +1,6 @@
 package com.example.portfolio1.database.entities
 
-import android.media.Image
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
@@ -22,15 +20,15 @@ class Converters {
 }
 
 @Entity(tableName = "users_table")
-data class User (
+data class User(
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    val sha256 : String,
-    val title : String,
+    val sha256: String,
+    val title: String,
     val userFirstname: String,
     val userLastname: String,
-    val pictureMedium : String,
-    val pictureSmall : String,
+    val pictureMedium: String,
+    val pictureSmall: String,
     var userBirthday: String,
     val userTelephone: String,
-    )
+)

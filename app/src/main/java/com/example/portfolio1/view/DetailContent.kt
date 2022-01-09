@@ -1,5 +1,6 @@
 package com.example.portfolio1.view
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +17,7 @@ import com.example.portfolio1.database.entities.User
 import com.example.portfolio1.viewModel.DetailViewModel
 
 @Composable
-fun DetailContent (navController: NavController, detailViewModel: DetailViewModel, user: User) {
+fun DetailContent (navController: NavController, detailViewModel: DetailViewModel, user: User, context: Context) {
 
     Column(
 
@@ -26,16 +27,16 @@ fun DetailContent (navController: NavController, detailViewModel: DetailViewMode
     ) {
 
         Text(
-            text = "User details:",
+            text = "User Details",
             modifier = Modifier
-                .background(Color.Yellow)
+                .background(Color.LightGray)
                 .padding(5.dp)
                 .fillMaxWidth(1f)
                 .align(Alignment.CenterHorizontally),
             fontSize = 15.sp
         )
 
-        detailViewModel.displayInformation(user)
+        detailViewModel.displayInformation(user, context)
 
     }
 

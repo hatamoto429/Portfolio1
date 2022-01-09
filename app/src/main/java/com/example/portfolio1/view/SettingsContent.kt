@@ -3,7 +3,7 @@ package com.example.portfolio1.view
 import android.content.Context
 import android.graphics.Bitmap
 import android.provider.MediaStore
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,10 +23,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.example.portfolio1.MainActivity
+import com.example.portfolio1.utility.QRGenerator
 import com.example.portfolio1.viewModel.SettingsViewModel
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import java.io.ByteArrayOutputStream
 
 val _isChecked = MutableLiveData(false)
@@ -42,36 +40,14 @@ fun SimpleCheckbox() {
     })
 }
 
-
-private fun generateQRCode(text: String): Bitmap {
-    val width = 500;
-    val height = 500;
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val codeWriter = MultiFormatWriter()
-    try {
-        val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
-        for (x in 0 until width) {
-            for (y in 0 until height) {
-                bitmap.setPixel(
-                    x,
-                    y,
-                    if (bitMatrix[x, y]) Color.Black.hashCode() else Color.White.hashCode()
-                )
-            }
-        }
-    } catch (e: WriterException) {
-        Log.d("QRGenerator", "QRGenerator: ${e.message}")
-    }
-    return bitmap
-}
-
 @Composable
 fun DisplayQR(
     navController: NavController,
     settingsViewModel: SettingsViewModel,
     context: Context
 ) {
-    var bitmap = generateQRCode("test");
+    var gen = QRGenerator()
+    var bitmap = gen.generateQRCode("test");
     val out = ByteArrayOutputStream()
     var image = bitmap.compress(Bitmap.CompressFormat.PNG, 75, out);
     MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "QR-Code", "description");
@@ -150,6 +126,9 @@ fun SettingsContent(
         Button(
 
             onClick = {
+                var toast = Toast(context)
+                toast.setText("Generated $userGenCount" + " new users")
+                toast.show()
                 settingsViewModel.fillDatabaseWithUsers(userGenCount, _isChecked.value!!, context)
             },
             modifier = Modifier.padding(top = 10.dp),
@@ -180,6 +159,9 @@ fun SettingsContent(
 
             onClick = {
                 settingsViewModel.deleteAllUsers()
+                var toast = Toast(context)
+                toast.setText("Deleted all users")
+                toast.show()
             },
             modifier = Modifier.padding(top = 10.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)

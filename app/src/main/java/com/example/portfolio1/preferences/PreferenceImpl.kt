@@ -13,7 +13,7 @@ import java.io.IOException
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data_storage")
 
-class PreferenceImpl (context: Context) : PreferenceStorage {
+class PreferenceImpl(context: Context) : PreferenceStorage {
 
     private val dataStore = context.dataStore
 

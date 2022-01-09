@@ -13,24 +13,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateUserViewModel@Inject constructor(private val userRepo: UserRepo, application: Application) :
+class CreateUserViewModel @Inject constructor(
+    private val userRepo: UserRepo,
+    application: Application
+) :
     AndroidViewModel(application) {
 
     private val _response = MutableLiveData<Long>()
     val response: LiveData<Long> = _response
 
     //insert user details to room database
-    fun insertUserDetails(user: User){
+    fun insertUserDetails(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             _response.postValue(userRepo.createUserRecords(user))
         }
     }
 
-    fun generateSHAKey(length: Int) : String {
+    fun generateSHAKey(length: Int): String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
         return (1..length)
             .map { charset.random() }
             .joinToString("")
     }
 
-    }
+}

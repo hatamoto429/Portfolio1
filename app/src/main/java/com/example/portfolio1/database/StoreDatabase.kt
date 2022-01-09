@@ -9,7 +9,7 @@ import com.example.portfolio1.database.entities.User
 
 @Database(
     entities = [
-       User::class
+        User::class
     ],
     version = 1
 )

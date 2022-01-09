@@ -1,18 +1,20 @@
 package com.example.portfolio1.viewModel
 
 import android.app.Application
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -85,42 +87,55 @@ class MainViewModel @Inject constructor(private val userRepo: UserRepo, applicat
         detailViewModel: DetailViewModel
     ) {
         doGetUserDetails()
-        userDetails.value.forEach() {
-            Button(
-                onClick = {
-                    detailViewModel._currentUser.value = it
-                    navController.navigate(MainActivity.ScreenData.Detail.route)
-                },
-                modifier = Modifier
-                    .size(450.dp, 50.dp)
-                    .border(1.dp, Color.Black),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-            ) {
-                Text(text = it.title + " ")
-                Text(text = it.userFirstname + " ")
-                Text(text = it.userLastname + " ")
-                //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
-                //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
-                Row() {
-                    Button(
-                        onClick = {
-                            doDeleteSingleUserRecord(it.sha256)
-                            navController.navigate(MainActivity.ScreenData.Main.route)
-                            doGetUserDetails()
-                        },
-                        modifier = Modifier
-                            .offset(20.dp, 0.dp)
-                            .size(80.dp, 50.dp)
-                            .clip(RoundedCornerShape(13.dp)),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                    ) {
-                        Text(text = "Delete", fontSize = 14.sp, color = Color.Black, textAlign = TextAlign.Center)
-                        Icon(
-                            painter = painterResource(id = R.drawable.deleteicon),
-                            contentDescription = "Delete",
-                            tint = Color.Red,
-                            modifier = Modifier.size(100.dp)
-                        )
+        Column(
+            modifier = Modifier
+                .background(Color.LightGray)
+                .size(1000.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            userDetails.value.forEach() {
+
+                Button(
+                    onClick = {
+                        detailViewModel._currentUser.value = it
+                        navController.navigate(MainActivity.ScreenData.Detail.route)
+                    },
+                    modifier = Modifier
+                        .size(450.dp, 50.dp)
+                        .border(1.dp, Color.Black),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                ) {
+                    Text(text = it.title + " ")
+                    Text(text = it.userFirstname + " ")
+                    Text(text = it.userLastname + " ")
+                    //Text(text = "|", modifier = Modifier.offset(15.dp, 0.dp))
+                    //Text(text = it.userTelephone, modifier = Modifier.offset(30.dp, 0.dp))
+                    Row() {
+                        Button(
+                            onClick = {
+                                doDeleteSingleUserRecord(it.sha256)
+                                navController.navigate(MainActivity.ScreenData.Main.route)
+                                doGetUserDetails()
+                            },
+                            modifier = Modifier
+                                .offset(20.dp, 0.dp)
+                                .size(80.dp, 50.dp)
+                                .clip(RoundedCornerShape(13.dp)),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                        ) {
+                            Text(
+                                text = "Delete",
+                                fontSize = 14.sp,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                            Icon(
+                                painter = painterResource(id = R.drawable.deleteicon),
+                                contentDescription = "Delete",
+                                tint = Color.Red,
+                                modifier = Modifier.size(100.dp)
+                            )
+                        }
                     }
                 }
             }

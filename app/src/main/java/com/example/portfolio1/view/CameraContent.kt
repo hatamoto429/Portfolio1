@@ -21,14 +21,19 @@ val _hasBeenFound = MutableLiveData(false)
 val hasBeenFound: LiveData<Boolean> = _hasBeenFound
 
 @Composable
-public fun SwitchToView(navController: NavController){
-    if (_hasBeenFound.value!!){
+public fun SwitchToView(navController: NavController) {
+    if (_hasBeenFound.value!!) {
         navController.navigate(MainActivity.ScreenData.Detail.route)
     }
 }
 
 @Composable
-fun CameraContent(navController: NavController, context: Context, cameraViewModel: CameraViewModel, detailViewModel: DetailViewModel) {
+fun CameraContent(
+    navController: NavController,
+    context: Context,
+    cameraViewModel: CameraViewModel,
+    detailViewModel: DetailViewModel
+) {
 
     PermissionQRCamera {
         cameraViewModel.codeScanner(navController, detailViewModel)

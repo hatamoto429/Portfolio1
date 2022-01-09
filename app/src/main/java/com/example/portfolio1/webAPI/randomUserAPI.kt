@@ -7,7 +7,7 @@ import io.ktor.client.request.*
 
 private const val BaseUrl: String = "https://randomuser.me/api"
 
-class randomUserAPI (private val client: HttpClient) {
-    suspend fun get(paragraphCount: Int ): Welcome =
+class randomUserAPI(private val client: HttpClient) {
+    suspend fun get(paragraphCount: Int): Welcome =
         client.get("$BaseUrl/?results=$paragraphCount")
 }

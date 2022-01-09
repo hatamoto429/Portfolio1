@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
                                 MainContent(navController, mainViewModel, detailViewModel)
                             }
                             composable(ScreenData.Detail.route) {
-                                DetailContent(navController, detailViewModel, defaultUser)
+                                DetailContent(navController, detailViewModel, defaultUser, applicationContext)
                             }
                             composable(ScreenData.CreateUser.route) {
                                 CreateUserContent(navController, createUserViewModel)
